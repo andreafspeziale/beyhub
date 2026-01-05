@@ -1,4 +1,4 @@
-import { CircleDot, Disc3, Hexagon, Shield, Sparkles, Swords, Zap } from 'lucide-react';
+import { CircleDot, Disc3, Hexagon, Shield, Sparkles, Swords, X, Zap } from 'lucide-react';
 import { useState } from 'react';
 import {
   Accordion,
@@ -23,6 +23,7 @@ const typeIcons: Record<BeybladeType, typeof Swords> = {
 interface BeybladeCardProps {
   beyblade: Beyblade;
   comparisonBeyblade?: Beyblade;
+  onRemove?: (id: string) => void;
 }
 
 function ImageWithFallback({ src, alt, name }: { src: string; alt: string; name: string }) {
@@ -71,7 +72,7 @@ function TotalStatsDisplay({
   );
 }
 
-export function BeybladeCard({ beyblade, comparisonBeyblade }: BeybladeCardProps) {
+export function BeybladeCard({ beyblade, comparisonBeyblade, onRemove }: BeybladeCardProps) {
   const totalStats = calculateTotalStats(beyblade);
   const comparisonTotalStats = comparisonBeyblade
     ? calculateTotalStats(comparisonBeyblade)
@@ -87,7 +88,17 @@ export function BeybladeCard({ beyblade, comparisonBeyblade }: BeybladeCardProps
   const TypeIcon = typeIcons[beyblade.type];
 
   return (
-    <Card className="w-full">
+    <Card className="w-full group relative">
+      {onRemove && (
+        <button
+          type="button"
+          onClick={() => onRemove(beyblade.id)}
+          className="absolute top-3 right-3 z-10 p-1.5 rounded-full bg-destructive/80 text-destructive-foreground opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-destructive hover:scale-110 shadow-lg"
+          aria-label={`Remove ${beyblade.name}`}
+        >
+          <X className="h-4 w-4" />
+        </button>
+      )}
       <CardContent className="p-4 space-y-4">
         <div className="text-center">
           <h3 className="font-semibold text-lg">{beyblade.name}</h3>

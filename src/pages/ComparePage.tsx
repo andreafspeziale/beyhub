@@ -56,17 +56,20 @@ export function ComparePage() {
                 <BeybladeCard
                   beyblade={leftBeyblade}
                   comparisonBeyblade={rightBeyblade ?? undefined}
+                  onRemove={() => setLeftBeyblade(null)}
                 />
               ) : (
-                <BeybladeCardPlaceholder />
+                <>
+                  <BeybladeCardPlaceholder />
+                  <BeybladeSearch
+                    beyblades={beyblades}
+                    selectedId={null}
+                    excludeId={rightBeyblade?.id ?? null}
+                    onSelect={setLeftBeyblade}
+                    placeholder="Type a Beyblade..."
+                  />
+                </>
               )}
-              <BeybladeSearch
-                beyblades={beyblades}
-                selectedId={leftBeyblade?.id ?? null}
-                excludeId={rightBeyblade?.id ?? null}
-                onSelect={setLeftBeyblade}
-                placeholder="Type a Beyblade..."
-              />
             </div>
 
             {/* Center column: Win probability */}
@@ -84,17 +87,22 @@ export function ComparePage() {
                 <BeybladeCard
                   beyblade={rightBeyblade}
                   comparisonBeyblade={leftBeyblade ?? undefined}
+                  onRemove={() => setRightBeyblade(null)}
                 />
               ) : (
-                <BeybladeCardPlaceholder />
+                <>
+                  <BeybladeCardPlaceholder />
+                  {leftBeyblade && (
+                    <BeybladeSearch
+                      beyblades={beyblades}
+                      selectedId={null}
+                      excludeId={leftBeyblade?.id ?? null}
+                      onSelect={setRightBeyblade}
+                      placeholder="Type a Beyblade..."
+                    />
+                  )}
+                </>
               )}
-              <BeybladeSearch
-                beyblades={beyblades}
-                selectedId={rightBeyblade?.id ?? null}
-                excludeId={leftBeyblade?.id ?? null}
-                onSelect={setRightBeyblade}
-                placeholder="Type a Beyblade..."
-              />
             </div>
           </div>
 
