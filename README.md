@@ -10,11 +10,12 @@ BeyHub allows you to:
 - **Compare Beyblades**: Select two beyblades and compare their stats side-by-side
 - **View Win Probability**: See estimated win percentages based on stats
 - **Explore Stats**: View detailed blade, ratchet, and bit statistics
+- **Compose Beyblades**: Create custom beyblade combinations from available components
 
 ### Key Features
 - Search-based beyblade selection with autocomplete
 - Side-by-side stat comparison with visual bars
-- Light and dark theme support
+- Custom beyblade composition with strategy presets (balanced, attack, defense, stamina)
 - Mobile-responsive design
 - Expandable component details (Blade, Ratchet, Bit stats)
 
@@ -29,7 +30,7 @@ BeyHub allows you to:
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/andreafspeziale/beyhub.git
    cd beyhub
    ```
 
@@ -56,7 +57,7 @@ BeyHub allows you to:
 | `bun run format` | Format code with Biome |
 | `bun run check` | Run linter and formatter checks (used in pre-commit) |
 | `bun test` | Run unit tests with Vitest |
-| `bun test --coverage` | Run tests with coverage report |
+| `bun run test:coverage` | Run tests with coverage report |
 
 ## Project Structure
 
@@ -78,7 +79,6 @@ beyhub/
 │   ├── types/               # TypeScript types
 │   ├── utils/               # Utility functions
 │   └── App.tsx              # Main app component
-└── ...config files
 ```
 
 ## Beyblade Data
@@ -121,17 +121,6 @@ Beyblades are stored in `/public/data/beyblades.json`:
 }
 ```
 
-### Stat Ranges
-- **Blade**: attack, defense, stamina (0-100)
-- **Ratchet**: attack, defense, stamina (0-100), height (variable, e.g., 55-85)
-- **Bit**: attack, defense, stamina, dash, burst (0-100)
-
-### Beyblade Types
-- **Attack**: High attack stats
-- **Defense**: High defense stats
-- **Stamina**: High stamina stats
-- **Balance**: Balanced stats across all categories
-
 ### Adding New Beyblades
 
 **Via Pull Request (Recommended):**
@@ -143,12 +132,6 @@ Beyblades are stored in `/public/data/beyblades.json`:
 5. Add image to `/public/assets/beyblades/` or use placeholder URL
 6. Submit PR with clear description and source for stats
 7. Data validation runs automatically on app startup
-
-**Data Shape Requirements:**
-- All stats must be integers
-- Blade/Ratchet/Bit stats: 0-100 range (except height which is variable)
-- All fields are required (no optional fields)
-- Image URLs must be valid (or use placeholder from placehold.co)
 
 ## Development Workflow
 
@@ -245,40 +228,11 @@ Tests are located in `__tests__` directories alongside source files.
 - **Linting/Formatting**: Biome
 - **Testing**: Vitest
 
-## Troubleshooting
+## Stay in touch
 
-### Common Issues
-
-**"Bun not found"**
-- Install Bun: `curl -fsSL https://bun.sh/install | bash`
-- Verify installation: `bun --version`
-
-**Port 5173 already in use**
-- Kill the process using the port or change port in `vite.config.ts`
-
-**Biome errors on commit**
-- Run `bun run format` to auto-fix formatting
-- Run `bun run lint` to see specific issues
-- Fix issues manually if auto-fix doesn't work
-
-**Build fails**
-- Ensure all dependencies installed: `bun install`
-- Check TypeScript errors: `bun run build`
-- No `any` types allowed in TypeScript
-
-**Data validation fails**
-- Check `beyblades.json` syntax (valid JSON)
-- Ensure all stats are integers within range
-- Verify all required fields are present
+- Author - [Andrea Francesco Speziale](https://x.com/andreafspeziale)
+- Beyblade Community - [Beyblade Wiki](https://beyblade.fandom.com/wiki/Beyblade_Wiki)
 
 ## License
 
-MIT License
-
-## Credits
-
-Built with:
-- React + Vite + TypeScript
-- Tailwind CSS + shadcn/ui
-- Biome + Husky
-- Bun runtime
+BeyHub is [MIT licensed](LICENSE).
