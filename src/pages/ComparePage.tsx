@@ -52,18 +52,14 @@ export function ComparePage() {
           <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 items-start">
             {/* Left column: card + search */}
             <div className="flex flex-col gap-4">
-              <div className="transition-opacity duration-300 ease-out">
-                {leftBeyblade ? (
-                  <div className="animate-in fade-in duration-300">
-                    <BeybladeCard
-                      beyblade={leftBeyblade}
-                      comparisonBeyblade={rightBeyblade ?? undefined}
-                    />
-                  </div>
-                ) : (
-                  <BeybladeCardPlaceholder />
-                )}
-              </div>
+              {leftBeyblade ? (
+                <BeybladeCard
+                  beyblade={leftBeyblade}
+                  comparisonBeyblade={rightBeyblade ?? undefined}
+                />
+              ) : (
+                <BeybladeCardPlaceholder />
+              )}
               <BeybladeSearch
                 beyblades={beyblades}
                 selectedId={leftBeyblade?.id ?? null}
@@ -75,31 +71,23 @@ export function ComparePage() {
 
             {/* Center column: Win probability */}
             <div className="hidden md:flex items-start justify-center">
-              <div className="transition-opacity duration-300 ease-out">
-                {bothSelected ? (
-                  <div className="animate-in fade-in duration-300">
-                    <WinProbability beybladeA={leftBeyblade} beybladeB={rightBeyblade} />
-                  </div>
-                ) : (
-                  <WinProbabilityPlaceholder />
-                )}
-              </div>
+              {bothSelected ? (
+                <WinProbability beybladeA={leftBeyblade} beybladeB={rightBeyblade} />
+              ) : (
+                <WinProbabilityPlaceholder />
+              )}
             </div>
 
             {/* Right column: card + search */}
             <div className="flex flex-col gap-4">
-              <div className="transition-opacity duration-300 ease-out">
-                {rightBeyblade ? (
-                  <div className="animate-in fade-in duration-300">
-                    <BeybladeCard
-                      beyblade={rightBeyblade}
-                      comparisonBeyblade={leftBeyblade ?? undefined}
-                    />
-                  </div>
-                ) : (
-                  <BeybladeCardPlaceholder />
-                )}
-              </div>
+              {rightBeyblade ? (
+                <BeybladeCard
+                  beyblade={rightBeyblade}
+                  comparisonBeyblade={leftBeyblade ?? undefined}
+                />
+              ) : (
+                <BeybladeCardPlaceholder />
+              )}
               <BeybladeSearch
                 beyblades={beyblades}
                 selectedId={rightBeyblade?.id ?? null}
@@ -112,15 +100,11 @@ export function ComparePage() {
 
           {/* Mobile: Win probability below cards */}
           <div className="flex md:hidden justify-center mt-4">
-            <div className="transition-opacity duration-300 ease-out">
-              {bothSelected ? (
-                <div className="animate-in fade-in duration-300">
-                  <WinProbability beybladeA={leftBeyblade} beybladeB={rightBeyblade} />
-                </div>
-              ) : (
-                <WinProbabilityPlaceholder />
-              )}
-            </div>
+            {bothSelected ? (
+              <WinProbability beybladeA={leftBeyblade} beybladeB={rightBeyblade} />
+            ) : (
+              <WinProbabilityPlaceholder />
+            )}
           </div>
         </div>
       </div>

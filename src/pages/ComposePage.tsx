@@ -69,12 +69,8 @@ export function ComposePage() {
             {/* Left side: Beyblade selections grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Render all selected beyblades */}
-              {selectedBeyblades.map((beyblade, index) => (
-                <div
-                  key={beyblade.id}
-                  className="flex flex-col gap-4 animate-in fade-in zoom-in-95 duration-300"
-                  style={{ animationDelay: `${index * 50}ms` }}
-                >
+              {selectedBeyblades.map((beyblade) => (
+                <div key={beyblade.id} className="flex flex-col gap-4">
                   <SelectableBeybladeCard beyblade={beyblade} onRemove={handleRemoveBeyblade} />
                 </div>
               ))}
@@ -102,7 +98,7 @@ export function ComposePage() {
 
               {/* Next selection placeholder with search (after at least one selection) */}
               {selectedBeyblades.length > 0 && (
-                <div className="flex flex-col gap-4 animate-in fade-in duration-300">
+                <div className="flex flex-col gap-4">
                   <SelectableBeybladeCardPlaceholder />
                   <BeybladeSearch
                     beyblades={beyblades}
@@ -117,29 +113,21 @@ export function ComposePage() {
 
             {/* Right side: Composition result */}
             <div className="hidden md:flex items-start justify-center">
-              <div className="transition-opacity duration-300 ease-out">
-                {compositionResult ? (
-                  <div className="animate-in fade-in duration-300">
-                    <CompositionResultCard result={compositionResult} />
-                  </div>
-                ) : (
-                  <CompositionResultPlaceholder />
-                )}
-              </div>
+              {compositionResult ? (
+                <CompositionResultCard result={compositionResult} />
+              ) : (
+                <CompositionResultPlaceholder />
+              )}
             </div>
           </div>
 
           {/* Mobile: Composition result below cards */}
           <div className="flex md:hidden justify-center mt-4">
-            <div className="transition-opacity duration-300 ease-out">
-              {compositionResult ? (
-                <div className="animate-in fade-in duration-300">
-                  <CompositionResultCard result={compositionResult} />
-                </div>
-              ) : (
-                <CompositionResultPlaceholder />
-              )}
-            </div>
+            {compositionResult ? (
+              <CompositionResultCard result={compositionResult} />
+            ) : (
+              <CompositionResultPlaceholder />
+            )}
           </div>
         </div>
       </div>

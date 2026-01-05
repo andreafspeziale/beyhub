@@ -9,6 +9,9 @@ dist-ssr/
 build/
 *.local
 
+# Vite cache
+.vite/
+
 # IDE and editors
 .idea/
 .vscode/*

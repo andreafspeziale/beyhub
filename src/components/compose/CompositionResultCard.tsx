@@ -20,7 +20,7 @@ export function CompositionResultCard({ result }: CompositionResultCardProps) {
   };
 
   return (
-    <Card className="w-full max-w-md animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <Card className="w-full max-w-md">
       <CardContent className="p-6 space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
