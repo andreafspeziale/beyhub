@@ -67,10 +67,10 @@ export function ComposePage() {
           {/* Consistent grid layout: selections on left, composition on right */}
           <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 items-start">
             {/* Left side: Beyblade selections grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
               {/* Render all selected beyblades */}
               {selectedBeyblades.map((beyblade) => (
-                <div key={beyblade.id} className="flex flex-col gap-4">
+                <div key={beyblade.id}>
                   <SelectableBeybladeCard beyblade={beyblade} onRemove={handleRemoveBeyblade} />
                 </div>
               ))}

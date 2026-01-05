@@ -151,77 +151,46 @@ export function CompositionResultCard({ result }: CompositionResultCardProps) {
 }
 
 export function CompositionResultPlaceholder() {
+  // Height matches SelectableBeybladeCardPlaceholder
   return (
-    <div className="w-full max-w-md min-w-80 rounded-lg border-2 border-dashed border-muted-foreground/30 bg-transparent">
-      <div className="p-4 space-y-4">
+    <div className="w-full max-w-md min-w-80 h-[304px] rounded-lg border-2 border-dashed border-muted-foreground/30 bg-transparent flex flex-col">
+      <div className="p-4 space-y-3 flex-1 flex flex-col">
         {/* Header placeholder */}
-        <div className="text-center space-y-1.5">
+        <div className="text-center space-y-1">
           <div className="h-5 w-32 mx-auto rounded bg-muted-foreground/10" />
           <div className="h-4 w-16 mx-auto rounded-full bg-muted-foreground/10" />
         </div>
 
         {/* Composition name placeholder */}
         <div className="flex items-center justify-center gap-1.5">
-          <div className="h-5 w-14 rounded bg-muted-foreground/10" />
+          <div className="h-4 w-12 rounded bg-muted-foreground/10" />
           <span className="text-muted-foreground/30">+</span>
-          <div className="h-5 w-10 rounded bg-muted-foreground/10" />
+          <div className="h-4 w-8 rounded bg-muted-foreground/10" />
           <span className="text-muted-foreground/30">+</span>
-          <div className="h-5 w-6 rounded bg-muted-foreground/10" />
+          <div className="h-4 w-6 rounded bg-muted-foreground/10" />
         </div>
 
-        {/* Components breakdown - compact with stats inline */}
-        <div className="space-y-2">
-          {/* Blade */}
-          <div className="p-2 rounded-lg bg-muted-foreground/5 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Disc3 className="h-4 w-4 text-muted-foreground/20" />
-              <div className="h-4 w-16 rounded bg-muted-foreground/10" />
-            </div>
-            <div className="flex gap-1.5">
-              <div className="h-4 w-8 rounded bg-muted-foreground/10" />
-              <div className="h-4 w-8 rounded bg-muted-foreground/10" />
-              <div className="h-4 w-8 rounded bg-muted-foreground/10" />
-            </div>
+        {/* Components - simple rows */}
+        <div className="space-y-1.5 flex-1">
+          <div className="p-1.5 rounded bg-muted-foreground/5 flex items-center gap-2">
+            <Disc3 className="h-3.5 w-3.5 text-muted-foreground/20" />
+            <div className="h-3 w-20 rounded bg-muted-foreground/10" />
           </div>
-
-          {/* Ratchet */}
-          <div className="p-2 rounded-lg bg-muted-foreground/5 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Hexagon className="h-4 w-4 text-muted-foreground/20" />
-              <div className="h-4 w-12 rounded bg-muted-foreground/10" />
-            </div>
-            <div className="flex gap-1.5">
-              <div className="h-4 w-6 rounded bg-muted-foreground/10" />
-              <div className="h-4 w-6 rounded bg-muted-foreground/10" />
-              <div className="h-4 w-6 rounded bg-muted-foreground/10" />
-              <div className="h-4 w-6 rounded bg-muted-foreground/10" />
-            </div>
+          <div className="p-1.5 rounded bg-muted-foreground/5 flex items-center gap-2">
+            <Hexagon className="h-3.5 w-3.5 text-muted-foreground/20" />
+            <div className="h-3 w-16 rounded bg-muted-foreground/10" />
           </div>
-
-          {/* Bit */}
-          <div className="p-2 rounded-lg bg-muted-foreground/5 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <CircleDot className="h-4 w-4 text-muted-foreground/20" />
-              <div className="h-4 w-10 rounded bg-muted-foreground/10" />
-            </div>
-            <div className="flex gap-1">
-              <div className="h-4 w-5 rounded bg-muted-foreground/10" />
-              <div className="h-4 w-5 rounded bg-muted-foreground/10" />
-              <div className="h-4 w-5 rounded bg-muted-foreground/10" />
-              <div className="h-4 w-5 rounded bg-muted-foreground/10" />
-              <div className="h-4 w-5 rounded bg-muted-foreground/10" />
-            </div>
+          <div className="p-1.5 rounded bg-muted-foreground/5 flex items-center gap-2">
+            <CircleDot className="h-3.5 w-3.5 text-muted-foreground/20" />
+            <div className="h-3 w-12 rounded bg-muted-foreground/10" />
           </div>
         </div>
 
-        {/* Total Stats placeholder */}
-        <div className="pt-3 border-t border-muted-foreground/10 space-y-2">
-          <div className="h-4 w-24 mx-auto rounded bg-muted-foreground/10" />
-          <div className="space-y-1.5">
-            <div className="h-4 w-full rounded bg-muted-foreground/10" />
-            <div className="h-4 w-full rounded bg-muted-foreground/10" />
-            <div className="h-4 w-full rounded bg-muted-foreground/10" />
-          </div>
+        {/* Stats placeholder - at bottom */}
+        <div className="pt-2 border-t border-muted-foreground/10 space-y-1.5 mt-auto">
+          <div className="h-3 w-full rounded bg-muted-foreground/10" />
+          <div className="h-3 w-full rounded bg-muted-foreground/10" />
+          <div className="h-3 w-full rounded bg-muted-foreground/10" />
         </div>
       </div>
     </div>

@@ -90,7 +90,7 @@ export function SelectableBeybladeCard({
   }
 
   return (
-    <Card className="w-full group relative overflow-hidden transition-all duration-200 hover:shadow-lg">
+    <Card className="w-full h-full group relative overflow-hidden transition-all duration-200 hover:shadow-lg flex flex-col">
       {/* Remove button - appears on hover with a cool discard effect */}
       <button
         type="button"
@@ -101,7 +101,7 @@ export function SelectableBeybladeCard({
         <X className="h-4 w-4" />
       </button>
 
-      <CardContent className="p-4 space-y-4">
+      <CardContent className="p-4 space-y-4 flex-1 flex flex-col">
         <div className="text-center">
           <h3 className="font-semibold text-lg">{beyblade.name}</h3>
           <div className="flex justify-center gap-1 mt-2 flex-wrap">
@@ -114,7 +114,7 @@ export function SelectableBeybladeCard({
           </div>
         </div>
 
-        <div className="flex justify-center">
+        <div className="flex justify-center flex-1 items-center">
           <ImageWithFallback src={beyblade.image} alt={beyblade.name} name={beyblade.name} />
         </div>
       </CardContent>
