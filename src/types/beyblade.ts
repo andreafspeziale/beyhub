@@ -43,3 +43,34 @@ export interface TotalStats {
   defense: number;
   stamina: number;
 }
+
+export type CompositionStrategy = 'balanced' | 'attack' | 'defense' | 'stamina';
+
+export interface BladeComponent {
+  name: string;
+  stats: BladeStats;
+  fromBeybladeId: string;
+  fromBeybladeName: string;
+}
+
+export interface RatchetComponent {
+  name: string;
+  stats: RatchetStats;
+  fromBeybladeId: string;
+  fromBeybladeName: string;
+}
+
+export interface BitComponent {
+  name: string;
+  stats: BitStats;
+  fromBeybladeId: string;
+  fromBeybladeName: string;
+}
+
+export interface CompositionResult {
+  blade: BladeComponent;
+  ratchet: RatchetComponent;
+  bit: BitComponent;
+  totalStats: TotalStats;
+  strategy: CompositionStrategy;
+}

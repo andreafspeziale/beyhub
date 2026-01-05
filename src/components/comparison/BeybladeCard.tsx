@@ -1,3 +1,4 @@
+import { CircleDot, Disc3, Hexagon, Shield, Sparkles, Swords, Zap } from 'lucide-react';
 import { useState } from 'react';
 import {
   Accordion,
@@ -8,9 +9,16 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import type { Beyblade, TotalStats } from '@/types/beyblade';
+import type { Beyblade, BeybladeType, TotalStats } from '@/types/beyblade';
 import { calculateTotalStats } from '@/utils/calculations';
 import { StatBar } from './StatBar';
+
+const typeIcons: Record<BeybladeType, typeof Swords> = {
+  Attack: Swords,
+  Defense: Shield,
+  Stamina: Zap,
+  Balance: Sparkles,
+};
 
 interface BeybladeCardProps {
   beyblade: Beyblade;
@@ -69,12 +77,14 @@ export function BeybladeCard({ beyblade, comparisonBeyblade }: BeybladeCardProps
     ? calculateTotalStats(comparisonBeyblade)
     : undefined;
 
-  const typeColors: Record<string, string> = {
+  const typeColors: Record<BeybladeType, string> = {
     Attack: 'bg-mellow-red/20 text-mellow-red',
     Defense: 'bg-mellow-blue/20 text-mellow-blue',
     Stamina: 'bg-mellow-green/20 text-mellow-green',
     Balance: 'bg-mellow-magenta/20 text-mellow-magenta',
   };
+
+  const TypeIcon = typeIcons[beyblade.type];
 
   return (
     <Card className="w-full">
@@ -82,7 +92,9 @@ export function BeybladeCard({ beyblade, comparisonBeyblade }: BeybladeCardProps
         <div className="text-center">
           <h3 className="font-semibold text-lg">{beyblade.name}</h3>
           <div className="flex justify-center gap-1 mt-2 flex-wrap">
-            <Badge className={typeColors[beyblade.type]}>{beyblade.type}</Badge>
+            <Badge className={typeColors[beyblade.type]}>
+              <TypeIcon className="h-3.5 w-3.5" />
+            </Badge>
             <Badge variant="outline">{beyblade.bladeName}</Badge>
             <Badge variant="outline">{beyblade.ratchetName}</Badge>
             <Badge variant="outline">{beyblade.bitName}</Badge>
@@ -102,7 +114,10 @@ export function BeybladeCard({ beyblade, comparisonBeyblade }: BeybladeCardProps
             </AccordionTrigger>
             <AccordionContent className="space-y-4 pt-2">
               <div className="space-y-3">
-                <h4 className="text-sm font-medium">Blade - {beyblade.bladeName}</h4>
+                <h4 className="text-sm font-medium flex items-center gap-2">
+                  <Disc3 className="h-4 w-4 text-mellow-blue" />
+                  Blade - {beyblade.bladeName}
+                </h4>
                 <div className="space-y-2">
                   <StatBar
                     label="Attack"
@@ -123,7 +138,10 @@ export function BeybladeCard({ beyblade, comparisonBeyblade }: BeybladeCardProps
               </div>
 
               <div className="space-y-3">
-                <h4 className="text-sm font-medium">Ratchet - {beyblade.ratchetName}</h4>
+                <h4 className="text-sm font-medium flex items-center gap-2">
+                  <Hexagon className="h-4 w-4 text-mellow-green" />
+                  Ratchet - {beyblade.ratchetName}
+                </h4>
                 <div className="space-y-2">
                   <StatBar
                     label="Attack"
@@ -150,7 +168,10 @@ export function BeybladeCard({ beyblade, comparisonBeyblade }: BeybladeCardProps
               </div>
 
               <div className="space-y-3">
-                <h4 className="text-sm font-medium">Bit - {beyblade.bitName}</h4>
+                <h4 className="text-sm font-medium flex items-center gap-2">
+                  <CircleDot className="h-4 w-4 text-mellow-red" />
+                  Bit - {beyblade.bitName}
+                </h4>
                 <div className="space-y-2">
                   <StatBar
                     label="Attack"

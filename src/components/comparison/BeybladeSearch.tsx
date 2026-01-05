@@ -14,7 +14,8 @@ import type { Beyblade } from '@/types/beyblade';
 interface BeybladeSearchProps {
   beyblades: Beyblade[];
   selectedId: string | null;
-  excludeId: string | null;
+  excludeId?: string | null;
+  excludeIds?: string[];
   onSelect: (beyblade: Beyblade) => void;
   placeholder?: string;
 }
@@ -23,13 +24,15 @@ export function BeybladeSearch({
   beyblades,
   selectedId,
   excludeId,
+  excludeIds = [],
   onSelect,
   placeholder = 'Type a Beyblade...',
 }: BeybladeSearchProps) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
 
-  const availableBeyblades = beyblades.filter((b) => b.id !== excludeId);
+  const allExcludeIds = excludeId ? [...excludeIds, excludeId] : excludeIds;
+  const availableBeyblades = beyblades.filter((b) => !allExcludeIds.includes(b.id));
   const selectedBeyblade = beyblades.find((b) => b.id === selectedId);
 
   return (
