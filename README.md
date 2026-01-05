@@ -1,6 +1,6 @@
 <div align="center">
   <p>
-    <img src="./cover.png" height="404" alt="BeyHub Cover" />
+    <img src="./cover.png" height="404" alt="BeyHub Cover" style="border-radius: 8px;" />
   </p>
   <p>
     A web application for comparing and compose beyblades.<br>
