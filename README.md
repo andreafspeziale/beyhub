@@ -1,10 +1,16 @@
-# BeyHub
-
-> Compare beyblades and create optimal combinations
-
-A web application for comparing beyblades. Built for kids and the beyblade community with a clean, minimal interface optimized for mobile-first usage.
+<div align="center">
+  <p>
+    <img src="./cover.png" height="404" alt="BeyHub Cover" />
+  </p>
+  <p>
+    A web application for comparing and compose beyblades.<br>
+  </p>
+</div>
 
 ## Overview
+
+> [!IMPORTANT]
+> Experimenting [vibe-coding](https://en.wikipedia.org/wiki/Vibe_coding). I never checked anything regarding the code
 
 BeyHub allows you to:
 - **Compare Beyblades**: Select two beyblades and compare their stats side-by-side
