@@ -1,0 +1,97 @@
+@import 'tailwindcss';
+@import "tw-animate-css";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  /* Mellow theme colors */
+  --color-mellow-red: var(--mellow-red);
+  --color-mellow-green: var(--mellow-green);
+  --color-mellow-yellow: var(--mellow-yellow);
+  --color-mellow-blue: var(--mellow-blue);
+  --color-mellow-magenta: var(--mellow-magenta);
+  --color-mellow-cyan: var(--mellow-cyan);
+}
+
+/* Mellow Dark Theme - Default */
+:root {
+  --radius: 0.625rem;
+  /* Mellow dark palette - from official mellow.nvim */
+  --background: #161617;
+  --foreground: #c9c7cd;
+  --card: #1b1b1d;
+  --card-foreground: #c9c7cd;
+  --popover: #18181a;
+  --popover-foreground: #c9c7cd;
+  --primary: #aca1cf;
+  --primary-foreground: #161617;
+  --secondary: #2a2a2d;
+  --secondary-foreground: #c9c7cd;
+  --muted: #2a2a2d;
+  --muted-foreground: #757581;
+  --accent: #353539;
+  --accent-foreground: #c9c7cd;
+  --destructive: #f5a191;
+  --destructive-foreground: #161617;
+  --border: #3e3e43;
+  --input: #2a2a2d;
+  --ring: #aca1cf;
+  /* Mellow colors */
+  --mellow-red: #f5a191;
+  --mellow-green: #90b99f;
+  --mellow-yellow: #e6b99d;
+  --mellow-blue: #aca1cf;
+  --mellow-magenta: #e29eca;
+  --mellow-cyan: #ea83a5;
+  /* Charts */
+  --chart-1: #f5a191;
+  --chart-2: #90b99f;
+  --chart-3: #aca1cf;
+  --chart-4: #e29eca;
+  --chart-5: #e6b99d;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      sans-serif;
+  }
+}

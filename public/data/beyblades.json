@@ -1,0 +1,112 @@
+{
+  "beyblades": [
+    {
+      "id": "impact_drake_9_60LR",
+      "name": "Impact Drake 9-60LR",
+      "type": "Attack",
+      "bladeName": "Impact Drake",
+      "ratchetName": "9-60",
+      "bitName": "LR",
+      "blade": {
+        "attack": 75,
+        "defense": 25,
+        "stamina": 10
+      },
+      "ratchet": {
+        "attack": 13,
+        "defense": 10,
+        "stamina": 7,
+        "height": 60
+      },
+      "bit": {
+        "attack": 45,
+        "defense": 5,
+        "stamina": 15,
+        "dash": 35,
+        "burst": 80
+      },
+      "image": "/assets/beyblades/impact_drake_9_60LR.png"
+    },
+    {
+      "id": "hover_wyvern_3_85N",
+      "name": "Hover Wyvern 3-85N",
+      "type": "Defense",
+      "bladeName": "Hover Wyvern",
+      "ratchetName": "3-85",
+      "bitName": "N",
+      "blade": {
+        "attack": 13,
+        "defense": 60,
+        "stamina": 27
+      },
+      "ratchet": {
+        "attack": 5,
+        "defense": 15,
+        "stamina": 10,
+        "height": 85
+      },
+      "bit": {
+        "attack": 10,
+        "defense": 50,
+        "stamina": 30,
+        "dash": 10,
+        "burst": 30
+      },
+      "image": "/assets/beyblades/hover_wyvern_3_85N.png"
+    },
+    {
+      "id": "sword_dran_3_60F",
+      "name": "Sword Dran 3-60F",
+      "type": "Attack",
+      "bladeName": "Sword Dran",
+      "ratchetName": "3-60",
+      "bitName": "F",
+      "blade": {
+        "attack": 55,
+        "defense": 25,
+        "stamina": 20
+      },
+      "ratchet": {
+        "attack": 15,
+        "defense": 9,
+        "stamina": 6,
+        "height": 60
+      },
+      "bit": {
+        "attack": 40,
+        "defense": 15,
+        "stamina": 10,
+        "dash": 35,
+        "burst": 80
+      },
+      "image": "/assets/beyblades/sword_dran_3_60F.png"
+    },
+    {
+      "id": "shinobi_shadow_1_80MN",
+      "name": "Shinobi Shadow 1-80MN",
+      "type": "Defense",
+      "bladeName": "Shinobi Shadow",
+      "ratchetName": "1-80",
+      "bitName": "MN",
+      "blade": {
+        "attack": 10,
+        "defense": 70,
+        "stamina": 20
+      },
+      "ratchet": {
+        "attack": 17,
+        "defense": 4,
+        "stamina": 9,
+        "height": 80
+      },
+      "bit": {
+        "attack": 8,
+        "defense": 57,
+        "stamina": 30,
+        "dash": 5,
+        "burst": 30
+      },
+      "image": "/assets/beyblades/shinobi_shadow_1_80MN.png"
+    }
+  ]
+}
