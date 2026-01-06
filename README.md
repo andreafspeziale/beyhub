@@ -1,6 +1,6 @@
 <div align="center">
   <p>
-    <img src="./cover.png" height="404" alt="BeyHub Cover"/>
+    <img src="./readme_cover.png" height="404" alt="BeyHub Cover"/>
   </p>
   <p>
     A web application for comparing and compose beyblades.<br>
@@ -77,6 +77,7 @@ beyhub/
 ├── src/
 │   ├── components/          # React components
 │   │   ├── comparison/      # Comparison feature components
+│   │   ├── compose/         # Compose feature components
 │   │   ├── error/           # Error boundaries
 │   │   ├── layout/          # Layout components (Header, Nav, ThemeToggle)
 │   │   └── ui/              # shadcn/ui components
