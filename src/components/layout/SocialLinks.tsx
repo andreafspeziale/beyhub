@@ -18,7 +18,7 @@ export function SocialLinks() {
   return (
     <div className="flex items-center gap-1">
       <a
-        href="https://github.com/andreafspeziale"
+        href="https://github.com/andreafspeziale/beyhub"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="GitHub"
