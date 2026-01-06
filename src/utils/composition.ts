@@ -148,7 +148,7 @@ export function getStrategyLabel(strategy: CompositionStrategy): string {
     case 'stamina':
       return 'Stamina';
     case 'balanced':
-      return 'Balanced';
+      return 'Balance';
   }
 }
 

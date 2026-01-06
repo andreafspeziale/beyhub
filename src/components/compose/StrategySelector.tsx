@@ -16,7 +16,7 @@ const strategyColors: Record<CompositionStrategy, { badge: string; icon: string 
 };
 
 const strategies: { value: CompositionStrategy; label: string; icon: typeof Swords }[] = [
-  { value: 'balanced', label: 'Balanced', icon: Sparkles },
+  { value: 'balanced', label: 'Balance', icon: Sparkles },
   { value: 'attack', label: 'Attack', icon: Swords },
   { value: 'defense', label: 'Defense', icon: Shield },
   { value: 'stamina', label: 'Stamina', icon: Zap },

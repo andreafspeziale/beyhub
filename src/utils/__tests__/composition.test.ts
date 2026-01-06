@@ -181,7 +181,7 @@ describe('getStrategyLabel', () => {
     expect(getStrategyLabel('attack')).toBe('Attack');
     expect(getStrategyLabel('defense')).toBe('Defense');
     expect(getStrategyLabel('stamina')).toBe('Stamina');
-    expect(getStrategyLabel('balanced')).toBe('Balanced');
+    expect(getStrategyLabel('balanced')).toBe('Balance');
   });
 });
 
