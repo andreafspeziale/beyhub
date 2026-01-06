@@ -1,6 +1,7 @@
 import { Logo } from './Logo';
 import { Navigation } from './Navigation';
 import { SocialLinks } from './SocialLinks';
+import { ThemeToggle } from './ThemeToggle';
 
 export function Header() {
   return (
@@ -9,6 +10,7 @@ export function Header() {
       <div className="flex justify-end items-center gap-4 mb-2">
         <Navigation />
         <SocialLinks />
+        <ThemeToggle />
       </div>
       {/* Main header content */}
       <div className="flex flex-col items-center gap-3 mb-4">

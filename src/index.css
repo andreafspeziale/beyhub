@@ -42,9 +42,46 @@
   --color-mellow-cyan: var(--mellow-cyan);
 }
 
-/* Mellow Dark Theme - Default */
+/* Mellow Light Theme */
 :root {
   --radius: 0.625rem;
+  /* Mellow light palette - soft warm background with mellow accents */
+  --background: #f5f3f0;
+  --foreground: #3a3a3d;
+  --card: #faf8f6;
+  --card-foreground: #3a3a3d;
+  --popover: #f8f6f3;
+  --popover-foreground: #3a3a3d;
+  --primary: #8b7fb8;
+  --primary-foreground: #faf8f6;
+  --secondary: #e8e4df;
+  --secondary-foreground: #3a3a3d;
+  --muted: #e8e4df;
+  --muted-foreground: #6b6b73;
+  --accent: #ddd8d2;
+  --accent-foreground: #3a3a3d;
+  --destructive: #d4736a;
+  --destructive-foreground: #faf8f6;
+  --border: #d5d0c9;
+  --input: #e8e4df;
+  --ring: #8b7fb8;
+  /* Mellow colors - slightly deeper for light background contrast */
+  --mellow-red: #d4736a;
+  --mellow-green: #6a9a78;
+  --mellow-yellow: #c99b7a;
+  --mellow-blue: #8b7fb8;
+  --mellow-magenta: #c47aaf;
+  --mellow-cyan: #c95f82;
+  /* Charts */
+  --chart-1: #d4736a;
+  --chart-2: #6a9a78;
+  --chart-3: #8b7fb8;
+  --chart-4: #c47aaf;
+  --chart-5: #c99b7a;
+}
+
+/* Mellow Dark Theme */
+.dark {
   /* Mellow dark palette - from official mellow.nvim */
   --background: #161617;
   --foreground: #c9c7cd;

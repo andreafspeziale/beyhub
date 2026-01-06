@@ -19,9 +19,10 @@ BeyHub allows you to:
 - **Compose Beyblades**: Create custom beyblade combinations from available components
 
 ### Key Features
-- Search-based beyblade selection with autocomplete
+- Search-based beyblade selection with autocomplete (`Cmd+K` to open)
 - Side-by-side stat comparison with visual bars
 - Custom beyblade composition with strategy presets (balanced, attack, defense, stamina)
+- Light/Dark theme toggle (`Cmd+D` to switch)
 - Mobile-responsive design
 - Expandable component details (Blade, Ratchet, Bit stats)
 
@@ -77,7 +78,7 @@ beyhub/
 │   ├── components/          # React components
 │   │   ├── comparison/      # Comparison feature components
 │   │   ├── error/           # Error boundaries
-│   │   ├── layout/          # Layout components (Header, Nav, etc.)
+│   │   ├── layout/          # Layout components (Header, Nav, ThemeToggle)
 │   │   └── ui/              # shadcn/ui components
 │   ├── hooks/               # Custom React hooks
 │   ├── pages/               # Page components

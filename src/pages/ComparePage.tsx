@@ -66,7 +66,8 @@ export function ComparePage() {
                     selectedId={null}
                     excludeId={rightBeyblade?.id ?? null}
                     onSelect={setLeftBeyblade}
-                    placeholder="Type a Beyblade..."
+                    placeholder="Type a Beyblade"
+                    enableShortcut
                   />
                 </>
               )}
@@ -98,7 +99,8 @@ export function ComparePage() {
                       selectedId={null}
                       excludeId={leftBeyblade?.id ?? null}
                       onSelect={setRightBeyblade}
-                      placeholder="Type a Beyblade..."
+                      placeholder="Type a Beyblade"
+                      enableShortcut
                     />
                   )}
                 </>

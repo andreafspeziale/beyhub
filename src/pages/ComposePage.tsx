@@ -86,7 +86,8 @@ export function ComposePage() {
                       selectedId={null}
                       excludeIds={selectedIds}
                       onSelect={handleAddBeyblade}
-                      placeholder="Type a Beyblade..."
+                      placeholder="Type a Beyblade"
+                      enableShortcut
                     />
                   </div>
                   {/* Second placeholder (no search) */}
@@ -105,7 +106,8 @@ export function ComposePage() {
                     selectedId={null}
                     excludeIds={selectedIds}
                     onSelect={handleAddBeyblade}
-                    placeholder="Type a Beyblade..."
+                    placeholder="Type a Beyblade"
+                    enableShortcut
                   />
                 </div>
               )}

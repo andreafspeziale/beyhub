@@ -1,9 +1,23 @@
-import { ArrowRight, CircleDot, Disc3, Hexagon } from 'lucide-react';
+import { ArrowRight, CircleDot, Disc3, Hexagon, Shield, Sparkles, Swords, Zap } from 'lucide-react';
 import { StatBar } from '@/components/comparison/StatBar';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import type { CompositionResult } from '@/types/beyblade';
+import type { CompositionResult, CompositionStrategy } from '@/types/beyblade';
 import { getStrategyLabel } from '@/utils/composition';
+
+const strategyIcons: Record<CompositionStrategy, typeof Swords> = {
+  balanced: Sparkles,
+  attack: Swords,
+  defense: Shield,
+  stamina: Zap,
+};
+
+const strategyColors: Record<CompositionStrategy, { badge: string; icon: string }> = {
+  attack: { badge: 'bg-mellow-red/20 text-mellow-red', icon: 'text-mellow-red' },
+  defense: { badge: 'bg-mellow-blue/20 text-mellow-blue', icon: 'text-mellow-blue' },
+  stamina: { badge: 'bg-mellow-green/20 text-mellow-green', icon: 'text-mellow-green' },
+  balanced: { badge: 'bg-mellow-magenta/20 text-mellow-magenta', icon: 'text-mellow-magenta' },
+};
 
 interface CompositionResultCardProps {
   result: CompositionResult;
@@ -12,29 +26,20 @@ interface CompositionResultCardProps {
 export function CompositionResultCard({ result }: CompositionResultCardProps) {
   const { blade, ratchet, bit, totalStats, strategy } = result;
 
-  const strategyColors: Record<string, string> = {
-    attack: 'bg-mellow-red/20 text-mellow-red',
-    defense: 'bg-mellow-blue/20 text-mellow-blue',
-    stamina: 'bg-mellow-green/20 text-mellow-green',
-    balanced: 'bg-mellow-magenta/20 text-mellow-magenta',
-  };
+  const StrategyIcon = strategyIcons[strategy];
 
   return (
     <Card className="w-full max-w-md">
       <CardContent className="p-6 space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
-          <h3 className="text-lg font-semibold">Optimal Composition</h3>
-          <Badge className={strategyColors[strategy]}>{getStrategyLabel(strategy)}</Badge>
-        </div>
-
-        {/* Composition Name */}
-        <div className="flex items-center justify-center gap-2 text-xl font-bold">
-          <span>{blade.name}</span>
-          <span className="text-muted-foreground">+</span>
-          <span>{ratchet.name}</span>
-          <span className="text-muted-foreground">+</span>
-          <span>{bit.name}</span>
+          <h3 className="text-lg font-semibold">Best Composition</h3>
+          <div className="flex items-center justify-center gap-1.5">
+            <Badge className={strategyColors[strategy].badge}>
+              <StrategyIcon className={`h-3.5 w-3.5 ${strategyColors[strategy].icon}`} />
+            </Badge>
+            <span className="text-sm text-muted-foreground">{getStrategyLabel(strategy)}</span>
+          </div>
         </div>
 
         {/* Components breakdown */}
@@ -151,46 +156,33 @@ export function CompositionResultCard({ result }: CompositionResultCardProps) {
 }
 
 export function CompositionResultPlaceholder() {
-  // Height matches SelectableBeybladeCardPlaceholder
+  // Matches SelectableBeybladeCardPlaceholder height exactly
   return (
-    <div className="w-full max-w-md min-w-80 h-[304px] rounded-lg border-2 border-dashed border-muted-foreground/30 bg-transparent flex flex-col">
-      <div className="p-4 space-y-3 flex-1 flex flex-col">
-        {/* Header placeholder */}
-        <div className="text-center space-y-1">
-          <div className="h-5 w-32 mx-auto rounded bg-muted-foreground/10" />
-          <div className="h-4 w-16 mx-auto rounded-full bg-muted-foreground/10" />
+    <div className="w-full max-w-md min-w-80 rounded-lg border-2 border-dashed border-muted-foreground/30 bg-transparent">
+      <div className="p-4 space-y-4">
+        {/* Header - matches title + badges row */}
+        <div className="text-center space-y-2">
+          <div className="h-7 w-28 mx-auto rounded bg-muted-foreground/10" />
+          <div className="h-5 w-20 mx-auto rounded-full bg-muted-foreground/10" />
         </div>
 
-        {/* Composition name placeholder */}
-        <div className="flex items-center justify-center gap-1.5">
-          <div className="h-4 w-12 rounded bg-muted-foreground/10" />
-          <span className="text-muted-foreground/30">+</span>
-          <div className="h-4 w-8 rounded bg-muted-foreground/10" />
-          <span className="text-muted-foreground/30">+</span>
-          <div className="h-4 w-6 rounded bg-muted-foreground/10" />
-        </div>
-
-        {/* Components - simple rows */}
-        <div className="space-y-1.5 flex-1">
-          <div className="p-1.5 rounded bg-muted-foreground/5 flex items-center gap-2">
-            <Disc3 className="h-3.5 w-3.5 text-muted-foreground/20" />
-            <div className="h-3 w-20 rounded bg-muted-foreground/10" />
+        {/* Content area - h-48 to match image placeholder */}
+        <div className="h-48 rounded bg-muted-foreground/5 p-4 flex flex-col justify-center space-y-3">
+          {/* Blade */}
+          <div className="flex items-center gap-3">
+            <Disc3 className="h-5 w-5 text-muted-foreground/30" />
+            <div className="h-4 flex-1 rounded bg-muted-foreground/10" />
           </div>
-          <div className="p-1.5 rounded bg-muted-foreground/5 flex items-center gap-2">
-            <Hexagon className="h-3.5 w-3.5 text-muted-foreground/20" />
-            <div className="h-3 w-16 rounded bg-muted-foreground/10" />
+          {/* Ratchet */}
+          <div className="flex items-center gap-3">
+            <Hexagon className="h-5 w-5 text-muted-foreground/30" />
+            <div className="h-4 flex-1 rounded bg-muted-foreground/10" />
           </div>
-          <div className="p-1.5 rounded bg-muted-foreground/5 flex items-center gap-2">
-            <CircleDot className="h-3.5 w-3.5 text-muted-foreground/20" />
-            <div className="h-3 w-12 rounded bg-muted-foreground/10" />
+          {/* Bit */}
+          <div className="flex items-center gap-3">
+            <CircleDot className="h-5 w-5 text-muted-foreground/30" />
+            <div className="h-4 flex-1 rounded bg-muted-foreground/10" />
           </div>
-        </div>
-
-        {/* Stats placeholder - at bottom */}
-        <div className="pt-2 border-t border-muted-foreground/10 space-y-1.5 mt-auto">
-          <div className="h-3 w-full rounded bg-muted-foreground/10" />
-          <div className="h-3 w-full rounded bg-muted-foreground/10" />
-          <div className="h-3 w-full rounded bg-muted-foreground/10" />
         </div>
       </div>
     </div>
