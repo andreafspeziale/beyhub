@@ -1,15 +1,26 @@
-import { Command as CommandIcon, Search, Shield, Sparkles, Swords, Zap } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-import { Badge } from '@/components/ui/badge';
+import {
+  Command as CommandIcon,
+  Search,
+  Shield,
+  Sparkles,
+  Swords,
+  Zap,
+} from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Badge } from "@/components/ui/badge";
 import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandItem,
   CommandList,
-} from '@/components/ui/command';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import type { Beyblade, BeybladeType } from '@/types/beyblade';
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import type { Beyblade, BeybladeType } from "@/types/beyblade";
 
 const typeIcons: Record<BeybladeType, typeof Swords> = {
   Attack: Swords,
@@ -19,17 +30,17 @@ const typeIcons: Record<BeybladeType, typeof Swords> = {
 };
 
 const typeBadgeColors: Record<BeybladeType, string> = {
-  Attack: 'bg-mellow-red/20 text-mellow-red',
-  Defense: 'bg-mellow-blue/20 text-mellow-blue',
-  Stamina: 'bg-mellow-green/20 text-mellow-green',
-  Balance: 'bg-mellow-magenta/20 text-mellow-magenta',
+  Attack: "bg-mellow-red/20 text-mellow-red",
+  Defense: "bg-mellow-blue/20 text-mellow-blue",
+  Stamina: "bg-mellow-green/20 text-mellow-green",
+  Balance: "bg-mellow-magenta/20 text-mellow-magenta",
 };
 
 const typeIconColors: Record<BeybladeType, string> = {
-  Attack: 'text-mellow-red',
-  Defense: 'text-mellow-blue',
-  Stamina: 'text-mellow-green',
-  Balance: 'text-mellow-magenta',
+  Attack: "text-mellow-red",
+  Defense: "text-mellow-blue",
+  Stamina: "text-mellow-green",
+  Balance: "text-mellow-magenta",
 };
 
 interface BeybladeSearchProps {
@@ -48,21 +59,25 @@ export function BeybladeSearch({
   excludeId,
   excludeIds = [],
   onSelect,
-  placeholder = 'Type a Beyblade',
+  placeholder = "Type a Beyblade",
   enableShortcut = false,
 }: BeybladeSearchProps) {
   const [open, setOpen] = useState(false);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const allExcludeIds = excludeId ? [...excludeIds, excludeId] : excludeIds;
-  const availableBeyblades = beyblades.filter((b) => !allExcludeIds.includes(b.id));
+  const availableBeyblades = beyblades.filter(
+    (b) => !allExcludeIds.includes(b.id),
+  );
   const selectedBeyblade = beyblades.find((b) => b.id === selectedId);
 
   const MAX_VISIBLE = 3;
   const isSearching = search.trim().length > 0;
   const filteredBeyblades = isSearching
-    ? availableBeyblades.filter((b) => b.name.toLowerCase().includes(search.toLowerCase()))
+    ? availableBeyblades.filter((b) =>
+        b.name.toLowerCase().includes(search.toLowerCase()),
+      )
     : availableBeyblades.slice(0, MAX_VISIBLE);
 
   useEffect(() => {
@@ -71,14 +86,14 @@ export function BeybladeSearch({
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
         setOpen(true);
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [enableShortcut]);
 
   return (
@@ -93,7 +108,7 @@ export function BeybladeSearch({
         >
           <Search className="h-4 w-4 text-muted-foreground shrink-0" />
           <span
-            className={`flex-1 ${selectedBeyblade ? 'text-foreground' : 'text-muted-foreground'}`}
+            className={`flex-1 ${selectedBeyblade ? "text-foreground" : "text-muted-foreground"}`}
           >
             {selectedBeyblade ? selectedBeyblade.name : placeholder}
           </span>
@@ -120,7 +135,7 @@ export function BeybladeSearch({
             />
           </div>
           <CommandList>
-            <CommandEmpty>No beyblades found.</CommandEmpty>
+            <CommandEmpty>No Beyblades found</CommandEmpty>
             <CommandGroup>
               {filteredBeyblades.map((beyblade) => (
                 <CommandItem
@@ -129,7 +144,7 @@ export function BeybladeSearch({
                   onSelect={() => {
                     onSelect(beyblade);
                     setOpen(false);
-                    setSearch('');
+                    setSearch("");
                   }}
                   className="cursor-pointer"
                 >
@@ -138,7 +153,9 @@ export function BeybladeSearch({
                     const TypeIcon = typeIcons[beyblade.type];
                     return (
                       <Badge className={typeBadgeColors[beyblade.type]}>
-                        <TypeIcon className={`h-3.5 w-3.5 ${typeIconColors[beyblade.type]}`} />
+                        <TypeIcon
+                          className={`h-3.5 w-3.5 ${typeIconColors[beyblade.type]}`}
+                        />
                       </Badge>
                     );
                   })()}
