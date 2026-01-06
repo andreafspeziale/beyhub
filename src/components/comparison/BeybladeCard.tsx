@@ -120,7 +120,7 @@ export function BeybladeCard({ beyblade, comparisonBeyblade, onRemove }: Beyblad
 
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="details" className="border-none">
-            <AccordionTrigger className="hover:no-underline py-2 justify-end gap-2 [&>svg]:ml-0">
+            <AccordionTrigger className="hover:no-underline py-2 justify-end gap-2 [&>svg]:ml-0 cursor-pointer">
               <span className="text-sm text-muted-foreground">Details</span>
             </AccordionTrigger>
             <AccordionContent className="space-y-4 pt-2">
