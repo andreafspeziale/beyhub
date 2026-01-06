@@ -29,8 +29,8 @@ export function CompositionResultCard({ result }: CompositionResultCardProps) {
   const StrategyIcon = strategyIcons[strategy];
 
   return (
-    <Card className="w-full max-w-md">
-      <CardContent className="p-6 space-y-6">
+    <Card className="w-full h-full">
+      <CardContent className="p-4 space-y-4">
         {/* Header */}
         <div className="text-center space-y-2">
           <h3 className="text-lg font-semibold">Best Composition</h3>
@@ -43,7 +43,7 @@ export function CompositionResultCard({ result }: CompositionResultCardProps) {
         </div>
 
         {/* Components breakdown */}
-        <div className="space-y-4">
+        <div className="space-y-3">
           {/* Blade */}
           <div className="p-3 rounded-lg bg-muted/50 space-y-2">
             <div className="flex items-center gap-2">
@@ -155,19 +155,25 @@ export function CompositionResultCard({ result }: CompositionResultCardProps) {
   );
 }
 
-export function CompositionResultPlaceholder() {
-  // Matches SelectableBeybladeCardPlaceholder height exactly
+interface CompositionResultPlaceholderProps {
+  height?: number;
+}
+
+export function CompositionResultPlaceholder({ height }: CompositionResultPlaceholderProps) {
   return (
-    <div className="w-full max-w-md min-w-80 rounded-lg border-2 border-dashed border-muted-foreground/30 bg-transparent">
-      <div className="p-4 space-y-4">
+    <div
+      className="w-full h-full rounded-lg border-2 border-dashed border-muted-foreground/30 bg-transparent"
+      style={height ? { height } : undefined}
+    >
+      <div className="p-4 space-y-4 h-full flex flex-col">
         {/* Header - matches title + badges row */}
         <div className="text-center space-y-2">
           <div className="h-7 w-28 mx-auto rounded bg-muted-foreground/10" />
           <div className="h-5 w-20 mx-auto rounded-full bg-muted-foreground/10" />
         </div>
 
-        {/* Content area - h-48 to match image placeholder */}
-        <div className="h-48 rounded bg-muted-foreground/5 p-4 flex flex-col justify-center space-y-3">
+        {/* Content area - expands to fill available space */}
+        <div className="flex-1 min-h-48 rounded bg-muted-foreground/5 p-4 flex flex-col justify-center space-y-3">
           {/* Blade */}
           <div className="flex items-center gap-3">
             <Disc3 className="h-5 w-5 text-muted-foreground/30" />

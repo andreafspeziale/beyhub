@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { BeybladeSearch } from '@/components/comparison/BeybladeSearch';
 import {
   CompositionResultCard,
@@ -14,13 +14,46 @@ import { useBeybladeData } from '@/hooks/useBeybladeData';
 import type { Beyblade, CompositionStrategy } from '@/types/beyblade';
 import { calculateOptimalComposition } from '@/utils/composition';
 
+const GAP_PX = 16; // gap-4 = 16px
+const DEFAULT_CARD_HEIGHT = 348; // Default card height in pixels
+
 export function ComposePage() {
   const { beyblades, isLoading, error } = useBeybladeData();
   const [selectedBeyblades, setSelectedBeyblades] = useState<Beyblade[]>([]);
   const [strategy, setStrategy] = useState<CompositionStrategy>('balanced');
+  const [cardHeight, setCardHeight] = useState<number | null>(null);
+  const measureRef = useRef<HTMLDivElement>(null);
 
   const selectedIds = selectedBeyblades.map((b) => b.id);
   const compositionResult = calculateOptimalComposition(selectedBeyblades, strategy);
+
+  // Measure card height from first selected card
+  useLayoutEffect(() => {
+    if (measureRef.current && selectedBeyblades.length > 0) {
+      const height = measureRef.current.offsetHeight;
+      if (height > 0 && height !== cardHeight) {
+        setCardHeight(height);
+      }
+    }
+  }, [selectedBeyblades.length, cardHeight]);
+
+  // Re-measure on resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (measureRef.current) {
+        setCardHeight(measureRef.current.offsetHeight);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Use measured height or default
+  const effectiveCardHeight = cardHeight ?? DEFAULT_CARD_HEIGHT;
+
+  // Height for composition result: 2 cards + 1 gap
+  const compositionHeight = effectiveCardHeight * 2 + GAP_PX;
 
   const handleAddBeyblade = (beyblade: Beyblade) => {
     if (!selectedIds.includes(beyblade.id)) {
@@ -46,13 +79,7 @@ export function ComposePage() {
   }
 
   if (isLoading) {
-    return (
-      <Layout>
-        <div className="flex-1 flex items-center justify-center">
-          <div className="animate-pulse text-muted-foreground">Loading beyblades...</div>
-        </div>
-      </Layout>
-    );
+    return <Layout>{null}</Layout>;
   }
 
   return (
@@ -63,14 +90,14 @@ export function ComposePage() {
           <StrategySelector strategy={strategy} onStrategyChange={setStrategy} />
         </div>
 
-        <div className="w-full max-w-5xl">
-          {/* Consistent grid layout: selections on left, composition on right */}
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 items-start">
-            {/* Left side: Beyblade selections grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
-              {/* Render all selected beyblades */}
-              {selectedBeyblades.map((beyblade) => (
-                <div key={beyblade.id}>
+        <div className="w-full max-w-6xl">
+          {/* 3-column layout: 2 beyblade columns + 1 composition column */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            {/* Left 2 columns: Beyblade selections */}
+            <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 items-start content-start">
+              {/* Render all selected beyblades - first one is measured */}
+              {selectedBeyblades.map((beyblade, index) => (
+                <div key={beyblade.id} ref={index === 0 ? measureRef : undefined}>
                   <SelectableBeybladeCard beyblade={beyblade} onRemove={handleRemoveBeyblade} />
                 </div>
               ))}
@@ -80,7 +107,7 @@ export function ComposePage() {
                 <>
                   {/* First placeholder with search */}
                   <div className="flex flex-col gap-4">
-                    <SelectableBeybladeCardPlaceholder />
+                    <SelectableBeybladeCardPlaceholder height={effectiveCardHeight} />
                     <BeybladeSearch
                       beyblades={beyblades}
                       selectedId={null}
@@ -92,7 +119,7 @@ export function ComposePage() {
                   </div>
                   {/* Second placeholder (no search) */}
                   <div className="hidden sm:flex flex-col gap-4">
-                    <SelectableBeybladeCardPlaceholder />
+                    <SelectableBeybladeCardPlaceholder height={effectiveCardHeight} />
                   </div>
                 </>
               )}
@@ -100,7 +127,7 @@ export function ComposePage() {
               {/* Next selection placeholder with search (after at least one selection) */}
               {selectedBeyblades.length > 0 && (
                 <div className="flex flex-col gap-4">
-                  <SelectableBeybladeCardPlaceholder />
+                  <SelectableBeybladeCardPlaceholder height={effectiveCardHeight} />
                   <BeybladeSearch
                     beyblades={beyblades}
                     selectedId={null}
@@ -113,18 +140,21 @@ export function ComposePage() {
               )}
             </div>
 
-            {/* Right side: Composition result */}
-            <div className="hidden md:flex items-start justify-center">
+            {/* Right column: Composition result (desktop) */}
+            <div
+              className="hidden lg:block self-start"
+              style={compositionResult ? { height: compositionHeight } : undefined}
+            >
               {compositionResult ? (
                 <CompositionResultCard result={compositionResult} />
               ) : (
-                <CompositionResultPlaceholder />
+                <CompositionResultPlaceholder height={effectiveCardHeight} />
               )}
             </div>
           </div>
 
-          {/* Mobile: Composition result below cards */}
-          <div className="flex md:hidden justify-center mt-4">
+          {/* Mobile/Tablet: Composition result below cards */}
+          <div className="flex lg:hidden justify-center mt-4">
             {compositionResult ? (
               <CompositionResultCard result={compositionResult} />
             ) : (

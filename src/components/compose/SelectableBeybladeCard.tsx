@@ -141,10 +141,19 @@ export function SelectableBeybladeCardSkeleton() {
   );
 }
 
-export function SelectableBeybladeCardPlaceholder() {
+interface SelectableBeybladeCardPlaceholderProps {
+  height?: number;
+}
+
+export function SelectableBeybladeCardPlaceholder({
+  height,
+}: SelectableBeybladeCardPlaceholderProps) {
   return (
-    <div className="w-full rounded-lg border-2 border-dashed border-muted-foreground/30 bg-transparent">
-      <div className="p-4 space-y-4">
+    <div
+      className="w-full rounded-lg border-2 border-dashed border-muted-foreground/30 bg-transparent flex flex-col"
+      style={height ? { height } : undefined}
+    >
+      <div className="p-4 space-y-4 flex-1 flex flex-col">
         {/* Title placeholder - matches h-7 (text-lg font-semibold) */}
         <div className="text-center space-y-2">
           <div className="h-7 w-40 mx-auto rounded bg-muted-foreground/10" />
@@ -156,8 +165,8 @@ export function SelectableBeybladeCardPlaceholder() {
             <div className="h-5 w-8 rounded-full bg-muted-foreground/10" />
           </div>
         </div>
-        {/* Image placeholder - matches h-48 */}
-        <div className="h-48 w-full rounded bg-muted-foreground/10" />
+        {/* Image placeholder - expands to fill available space */}
+        <div className="flex-1 min-h-48 w-full rounded bg-muted-foreground/10" />
       </div>
     </div>
   );
