@@ -87,7 +87,7 @@ export function BeybladeSearch({
         <button
           ref={buttonRef}
           type="button"
-          className="w-full flex items-center gap-2 px-4 py-3 border rounded-lg bg-background hover:bg-accent transition-colors text-left"
+          className="w-full flex items-center gap-2 px-4 py-3 border rounded-lg bg-background hover:bg-accent transition-colors text-left cursor-pointer"
           aria-expanded={open}
           aria-haspopup="listbox"
         >
