@@ -107,6 +107,114 @@
         "burst": 30
       },
       "image": "/assets/beyblades/shinobi_shadow_1_80MN.png"
+    },
+    {
+      "id": "arrow_wizard_4_80B",
+      "name": "Arrow Wizard 4-80B",
+      "type": "Stamina",
+      "bladeName": "Arrow Wizard",
+      "ratchetName": "4-80",
+      "bitName": "B",
+      "blade": {
+        "attack": 15,
+        "defense": 30,
+        "stamina": 55
+      },
+      "ratchet": {
+        "attack": 11,
+        "defense": 11,
+        "stamina": 8,
+        "height": 80
+      },
+      "bit": {
+        "attack": 15,
+        "defense": 25,
+        "stamina": 50,
+        "dash": 10,
+        "burst": 30
+      },
+      "image": "/assets/beyblades/arrow_wizard_4_80B.png"
+    },
+    {
+      "id": "helm_knight_3_80N",
+      "name": "Helm Knight 3-80N",
+      "type": "Defense",
+      "bladeName": "Helm Knight",
+      "ratchetName": "3-80",
+      "bitName": "N",
+      "blade": {
+        "attack": 20,
+        "defense": 55,
+        "stamina": 25
+      },
+      "ratchet": {
+        "attack": 15,
+        "defense": 7,
+        "stamina": 8,
+        "height": 80
+      },
+      "bit": {
+        "attack": 10,
+        "defense": 50,
+        "stamina": 30,
+        "dash": 10,
+        "burst": 30
+      },
+      "image": "/assets/beyblades/helm_knight_3_80N.png"
+    },
+    {
+      "id": "crest_leon_7_60GN",
+      "name": "Crest Leon 7-60GN",
+      "type": "Defense",
+      "bladeName": "Crest Leon",
+      "ratchetName": "7-60",
+      "bitName": "GN",
+      "blade": {
+        "attack": 15,
+        "defense": 70,
+        "stamina": 15
+      },
+      "ratchet": {
+        "attack": 8,
+        "defense": 14,
+        "stamina": 8,
+        "height": 60
+      },
+      "bit": {
+        "attack": 20,
+        "defense": 40,
+        "stamina": 10,
+        "dash": 30,
+        "burst": 30
+      },
+      "image": "/assets/beyblades/crest_leon_7_60GN.png"
+    },
+    {
+      "id": "claw_leon_5_60P",
+      "name": "Claw Leon 5-60P",
+      "type": "Balance",
+      "bladeName": "Claw Leon",
+      "ratchetName": "5-60",
+      "bitName": "P",
+      "blade": {
+        "attack": 40,
+        "defense": 40,
+        "stamina": 20
+      },
+      "ratchet": {
+        "attack": 12,
+        "defense": 9,
+        "stamina": 9,
+        "height": 60
+      },
+      "bit": {
+        "attack": 25,
+        "defense": 25,
+        "stamina": 25,
+        "dash": 25,
+        "burst": 80
+      },
+      "image": "/assets/beyblades/claw_leon_5_60P.png"
     }
   ]
 }
