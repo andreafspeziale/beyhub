@@ -93,7 +93,7 @@ export function BeybladeCard({ beyblade, comparisonBeyblade, onRemove }: Beyblad
         <button
           type="button"
           onClick={() => onRemove(beyblade.id)}
-          className="absolute top-3 right-3 z-10 p-1.5 rounded-full bg-destructive/80 text-destructive-foreground opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-destructive hover:scale-110 shadow-lg"
+          className="absolute top-3 right-3 z-10 p-1.5 rounded-full bg-destructive/80 text-destructive-foreground opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-destructive hover:scale-110 shadow-lg cursor-pointer"
           aria-label={`Remove ${beyblade.name}`}
         >
           <X className="h-4 w-4" />
