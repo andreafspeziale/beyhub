@@ -1,19 +1,19 @@
 import { z } from 'zod';
 
-export const BladeStatsSchema = z.object({
+const BladeStatsSchema = z.object({
   attack: z.number().int().min(0).max(100),
   defense: z.number().int().min(0).max(100),
   stamina: z.number().int().min(0).max(100),
 });
 
-export const RatchetStatsSchema = z.object({
+const RatchetStatsSchema = z.object({
   attack: z.number().int().min(0).max(100),
   defense: z.number().int().min(0).max(100),
   stamina: z.number().int().min(0).max(100),
   height: z.number().int().min(0),
 });
 
-export const BitStatsSchema = z.object({
+const BitStatsSchema = z.object({
   attack: z.number().int().min(0).max(100),
   defense: z.number().int().min(0).max(100),
   stamina: z.number().int().min(0).max(100),
@@ -21,9 +21,9 @@ export const BitStatsSchema = z.object({
   burst: z.number().int().min(0).max(100),
 });
 
-export const BeybladeTypeSchema = z.enum(['Attack', 'Defense', 'Stamina', 'Balance']);
+const BeybladeTypeSchema = z.enum(['Attack', 'Defense', 'Stamina', 'Balance']);
 
-export const BeybladeSchema = z.object({
+const BeybladeSchema = z.object({
   id: z.string().min(1),
   name: z.string().min(1),
   type: BeybladeTypeSchema,

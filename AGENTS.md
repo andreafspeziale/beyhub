@@ -9,7 +9,7 @@ BeyHub is a React 19 + TypeScript SPA built with Vite for comparing Beyblade sta
 - **Styling**: Tailwind CSS 4 + shadcn/ui (new-york style)
 - **Validation**: Zod
 - **Linting/Formatting**: Biome
-- **Testing**: Vitest + React Testing Library
+- **Testing**: Vitest
 
 ## Build/Lint/Test Commands
 
@@ -173,3 +173,29 @@ Use `@/` to reference the `src/` directory:
 import { Button } from '@/components/ui/button';
 import type { Beyblade } from '@/types/beyblade';
 ```
+
+## Exports and Dependencies Hygiene
+
+### Unused Exports
+
+Biome cannot detect unused exports across files (it's a single-file linter). To keep the codebase clean:
+
+- **Only export what is consumed** - avoid speculative exports "just in case"
+- **Internal helpers should not be exported** - if a function/schema/type is only used within the same file or module, keep it private (no `export` keyword)
+- **Exception: `src/components/ui/`** - shadcn/ui components export many symbols by design for library flexibility; these are acceptable
+
+```typescript
+// Good: internal schema, only export the composed one
+const PartSchema = z.object({ ... });
+export const WholeSchema = z.object({ part: PartSchema });
+
+// Bad: exporting internal schemas that are never imported elsewhere
+export const PartSchema = z.object({ ... });
+export const WholeSchema = z.object({ part: PartSchema });
+```
+
+### Unused Dependencies
+
+- **Only add dependencies that are actually used** in code
+- **Peer dependencies** (like `@testing-library/dom` for `@testing-library/react`) should be added only if the parent package is used
+- **devDependencies** used only by scripts (e.g., coverage tools) must still be listed explicitly

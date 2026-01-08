@@ -122,25 +122,6 @@ export function SelectableBeybladeCard({
   );
 }
 
-export function SelectableBeybladeCardSkeleton() {
-  return (
-    <Card className="w-full">
-      <CardContent className="p-4 space-y-4">
-        <div className="text-center space-y-2">
-          <div className="h-6 w-48 mx-auto rounded bg-muted animate-pulse" />
-          <div className="flex justify-center gap-1">
-            <div className="h-5 w-6 rounded bg-muted animate-pulse" />
-            <div className="h-5 w-16 rounded bg-muted animate-pulse" />
-            <div className="h-5 w-12 rounded bg-muted animate-pulse" />
-            <div className="h-5 w-8 rounded bg-muted animate-pulse" />
-          </div>
-        </div>
-        <div className="h-48 w-full rounded bg-muted animate-pulse" />
-      </CardContent>
-    </Card>
-  );
-}
-
 interface SelectableBeybladeCardPlaceholderProps {
   height?: number;
 }

@@ -34,10 +34,6 @@ export interface Beyblade {
   image: string;
 }
 
-export interface BeybladeData {
-  beyblades: Beyblade[];
-}
-
 export interface TotalStats {
   attack: number;
   defense: number;
