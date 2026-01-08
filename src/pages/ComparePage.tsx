@@ -64,7 +64,7 @@ export function ComparePage() {
                   <BeybladeSearch
                     beyblades={beyblades}
                     selectedId={null}
-                    excludeId={rightBeyblade?.id ?? null}
+                    excludeIds={rightBeyblade ? [rightBeyblade.id] : []}
                     onSelect={setLeftBeyblade}
                     placeholder="Type a Beyblade"
                     enableShortcut
@@ -97,7 +97,7 @@ export function ComparePage() {
                     <BeybladeSearch
                       beyblades={beyblades}
                       selectedId={null}
-                      excludeId={leftBeyblade?.id ?? null}
+                      excludeIds={[leftBeyblade.id]}
                       onSelect={setRightBeyblade}
                       placeholder="Type a Beyblade"
                       enableShortcut

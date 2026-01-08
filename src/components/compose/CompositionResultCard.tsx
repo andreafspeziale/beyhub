@@ -1,23 +1,10 @@
-import { ArrowRight, CircleDot, Disc3, Hexagon, Shield, Sparkles, Swords, Zap } from 'lucide-react';
+import { ArrowRight, CircleDot, Disc3, Hexagon } from 'lucide-react';
 import { StatBar } from '@/components/comparison/StatBar';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import type { CompositionResult, CompositionStrategy } from '@/types/beyblade';
+import { STRATEGY_COLORS, STRATEGY_ICONS } from '@/constants/strategy.constants';
+import type { CompositionResult } from '@/types/beyblade';
 import { getStrategyLabel } from '@/utils/composition';
-
-const strategyIcons: Record<CompositionStrategy, typeof Swords> = {
-  balanced: Sparkles,
-  attack: Swords,
-  defense: Shield,
-  stamina: Zap,
-};
-
-const strategyColors: Record<CompositionStrategy, { badge: string; icon: string }> = {
-  attack: { badge: 'bg-mellow-red/20 text-mellow-red', icon: 'text-mellow-red' },
-  defense: { badge: 'bg-mellow-blue/20 text-mellow-blue', icon: 'text-mellow-blue' },
-  stamina: { badge: 'bg-mellow-green/20 text-mellow-green', icon: 'text-mellow-green' },
-  balanced: { badge: 'bg-mellow-magenta/20 text-mellow-magenta', icon: 'text-mellow-magenta' },
-};
 
 interface CompositionResultCardProps {
   result: CompositionResult;
@@ -26,7 +13,7 @@ interface CompositionResultCardProps {
 export function CompositionResultCard({ result }: CompositionResultCardProps) {
   const { blade, ratchet, bit, totalStats, strategy } = result;
 
-  const StrategyIcon = strategyIcons[strategy];
+  const StrategyIcon = STRATEGY_ICONS[strategy];
 
   return (
     <Card className="w-full h-full">
@@ -35,8 +22,8 @@ export function CompositionResultCard({ result }: CompositionResultCardProps) {
         <div className="text-center space-y-2">
           <h3 className="text-lg font-semibold">Best Composition</h3>
           <div className="flex items-center justify-center gap-1.5">
-            <Badge className={strategyColors[strategy].badge}>
-              <StrategyIcon className={`h-3.5 w-3.5 ${strategyColors[strategy].icon}`} />
+            <Badge className={STRATEGY_COLORS[strategy].badge}>
+              <StrategyIcon className={`h-3.5 w-3.5 ${STRATEGY_COLORS[strategy].icon}`} />
             </Badge>
             <span className="text-sm text-muted-foreground">{getStrategyLabel(strategy)}</span>
           </div>

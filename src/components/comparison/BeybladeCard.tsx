@@ -1,5 +1,5 @@
-import { CircleDot, Disc3, Hexagon, Shield, Sparkles, Swords, X, Zap } from 'lucide-react';
-import { useState } from 'react';
+import { CircleDot, Disc3, Hexagon, X } from 'lucide-react';
+import { ImageWithFallback } from '@/components/common/ImageWithFallback';
 import {
   Accordion,
   AccordionContent,
@@ -9,36 +9,15 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import type { Beyblade, BeybladeType, TotalStats } from '@/types/beyblade';
+import { TYPE_COLORS, TYPE_ICONS } from '@/constants/beyblade.constants';
+import type { Beyblade, TotalStats } from '@/types/beyblade';
 import { calculateTotalStats } from '@/utils/calculations';
 import { StatBar } from './StatBar';
-
-const typeIcons: Record<BeybladeType, typeof Swords> = {
-  Attack: Swords,
-  Defense: Shield,
-  Stamina: Zap,
-  Balance: Sparkles,
-};
 
 interface BeybladeCardProps {
   beyblade: Beyblade;
   comparisonBeyblade?: Beyblade;
   onRemove?: (id: string) => void;
-}
-
-function ImageWithFallback({ src, alt, name }: { src: string; alt: string; name: string }) {
-  const [error, setError] = useState(false);
-  const fallbackUrl = `https://placehold.co/400x400?text=${encodeURIComponent(name)}`;
-
-  return (
-    <img
-      src={error ? fallbackUrl : src}
-      alt={alt}
-      className="w-full h-48 object-contain"
-      onError={() => setError(true)}
-      loading="lazy"
-    />
-  );
 }
 
 function TotalStatsDisplay({
@@ -78,14 +57,7 @@ export function BeybladeCard({ beyblade, comparisonBeyblade, onRemove }: Beyblad
     ? calculateTotalStats(comparisonBeyblade)
     : undefined;
 
-  const typeColors: Record<BeybladeType, string> = {
-    Attack: 'bg-mellow-red/20 text-mellow-red',
-    Defense: 'bg-mellow-blue/20 text-mellow-blue',
-    Stamina: 'bg-mellow-green/20 text-mellow-green',
-    Balance: 'bg-mellow-magenta/20 text-mellow-magenta',
-  };
-
-  const TypeIcon = typeIcons[beyblade.type];
+  const TypeIcon = TYPE_ICONS[beyblade.type];
 
   return (
     <Card className="w-full group relative">
@@ -103,7 +75,7 @@ export function BeybladeCard({ beyblade, comparisonBeyblade, onRemove }: Beyblad
         <div className="text-center">
           <h3 className="font-semibold text-lg">{beyblade.name}</h3>
           <div className="flex justify-center gap-1 mt-2 flex-wrap">
-            <Badge className={typeColors[beyblade.type]}>
+            <Badge className={TYPE_COLORS[beyblade.type]}>
               <TypeIcon className="h-3.5 w-3.5" />
             </Badge>
             <Badge variant="outline">{beyblade.bladeName}</Badge>
@@ -113,7 +85,12 @@ export function BeybladeCard({ beyblade, comparisonBeyblade, onRemove }: Beyblad
         </div>
 
         <div className="flex justify-center">
-          <ImageWithFallback src={beyblade.image} alt={beyblade.name} name={beyblade.name} />
+          <ImageWithFallback
+            src={beyblade.image}
+            alt={beyblade.name}
+            name={beyblade.name}
+            className="w-full h-48"
+          />
         </div>
 
         <TotalStatsDisplay stats={totalStats} comparisonStats={comparisonTotalStats} />

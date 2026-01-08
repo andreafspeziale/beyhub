@@ -33,17 +33,20 @@ bun test -t "calculateTotalStats"                  # Pattern match
 ```
 src/
 ├── components/
-│   ├── comparison/      # Feature components (BeybladeCard, Search, etc.)
+│   ├── common/          # Shared utility components (ImageWithFallback, etc.)
+│   ├── comparison/      # Compare page feature components (BeybladeCard, Search, etc.)
+│   ├── compose/         # Compose page feature components (SelectableBeybladeCard, etc.)
 │   ├── error/           # ErrorBoundary, ErrorFallback
 │   ├── layout/          # Header, Footer, Navigation, Layout
 │   └── ui/              # shadcn/ui components (do not modify)
-├── hooks/               # Custom React hooks
+├── constants/           # Shared constants (beyblade.constants.ts, strategy.constants.ts)
+├── hooks/               # Custom React hooks (useBeybladeData, useElementHeight, useTheme)
 ├── lib/                 # Utility functions (cn helper)
 ├── pages/               # Page components
 ├── schemas/             # Zod validation schemas
 ├── types/               # TypeScript type definitions
 ├── utils/               # Business logic functions
-│   └── __tests__/       # Unit tests colocated with utils
+│   └── __tests__/       # Unit tests colocated with utils (including fixtures.ts)
 ├── App.tsx              # Root component with routing
 └── main.tsx             # Entry point
 ```
@@ -130,14 +133,12 @@ const message = err instanceof Error ? err.message : 'Unknown error';
 
 - Test files in `__tests__` directories alongside source
 - Use `describe`/`it` blocks from Vitest
-- Create mock factory functions for test data
+- Use shared mock factories from `fixtures.ts`
 - Naming: `<source-file>.test.ts`
 
 ```typescript
 import { describe, expect, it } from 'vitest';
-const createMockBeyblade = (overrides: Partial<Beyblade> = {}): Beyblade => ({
-  id: 'test_beyblade', name: 'Test Beyblade', ...overrides,
-});
+import { createMockBeyblade } from './fixtures';
 describe('calculateTotalStats', () => {
   it('correctly calculates total attack', () => {
     expect(calculateTotalStats(createMockBeyblade()).attack).toBe(80);
@@ -199,3 +200,45 @@ export const WholeSchema = z.object({ part: PartSchema });
 - **Only add dependencies that are actually used** in code
 - **Peer dependencies** (like `@testing-library/dom` for `@testing-library/react`) should be added only if the parent package is used
 - **devDependencies** used only by scripts (e.g., coverage tools) must still be listed explicitly
+
+
+## Styling Patterns
+
+### Conditional Classes
+
+Always use the `cn()` utility from `@/lib/utils` for conditional class composition:
+
+```typescript
+// Good: use cn() for conditional classes
+className={cn(
+  'px-3 py-1.5 rounded-md text-sm font-medium transition-colors',
+  isActive
+    ? 'bg-primary text-primary-foreground'
+    : 'text-muted-foreground hover:text-foreground'
+)}
+
+// Avoid: template literals for conditional classes
+className={`px-3 py-1.5 ${isActive ? 'bg-primary' : 'text-muted'}`}
+```
+
+### Constants
+
+Shared UI constants (icons, colors) are in `src/constants/`:
+
+- `beyblade.constants.ts` - `TYPE_ICONS`, `TYPE_COLORS`, `TYPE_ICON_COLORS`
+- `strategy.constants.ts` - `STRATEGY_ICONS`, `STRATEGY_COLORS`, `STRATEGIES`
+
+```typescript
+import { TYPE_COLORS, TYPE_ICONS } from '@/constants/beyblade.constants';
+import { STRATEGY_COLORS, STRATEGIES } from '@/constants/strategy.constants';
+```
+
+### Common Components
+
+Reusable utility components live in `src/components/common/`:
+
+- `ImageWithFallback` - Image with placeholder fallback on error
+
+```typescript
+import { ImageWithFallback } from '@/components/common/ImageWithFallback';
+```

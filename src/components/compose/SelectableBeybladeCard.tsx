@@ -1,15 +1,9 @@
-import { Shield, Sparkles, Swords, X, Zap } from 'lucide-react';
-import { useState } from 'react';
+import { X } from 'lucide-react';
+import { ImageWithFallback } from '@/components/common/ImageWithFallback';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import type { Beyblade, BeybladeType } from '@/types/beyblade';
-
-const typeIcons: Record<BeybladeType, typeof Swords> = {
-  Attack: Swords,
-  Defense: Shield,
-  Stamina: Zap,
-  Balance: Sparkles,
-};
+import { TYPE_COLORS, TYPE_ICONS } from '@/constants/beyblade.constants';
+import type { Beyblade } from '@/types/beyblade';
 
 interface SelectableBeybladeCardProps {
   beyblade: Beyblade;
@@ -17,44 +11,12 @@ interface SelectableBeybladeCardProps {
   compact?: boolean;
 }
 
-function ImageWithFallback({
-  src,
-  alt,
-  name,
-  compact,
-}: {
-  src: string;
-  alt: string;
-  name: string;
-  compact?: boolean;
-}) {
-  const [error, setError] = useState(false);
-  const fallbackUrl = `https://placehold.co/400x400?text=${encodeURIComponent(name)}`;
-
-  return (
-    <img
-      src={error ? fallbackUrl : src}
-      alt={alt}
-      className={compact ? 'w-full h-24 object-contain' : 'w-full h-48 object-contain'}
-      onError={() => setError(true)}
-      loading="lazy"
-    />
-  );
-}
-
 export function SelectableBeybladeCard({
   beyblade,
   onRemove,
   compact = false,
 }: SelectableBeybladeCardProps) {
-  const typeColors: Record<BeybladeType, string> = {
-    Attack: 'bg-mellow-red/20 text-mellow-red',
-    Defense: 'bg-mellow-blue/20 text-mellow-blue',
-    Stamina: 'bg-mellow-green/20 text-mellow-green',
-    Balance: 'bg-mellow-magenta/20 text-mellow-magenta',
-  };
-
-  const TypeIcon = typeIcons[beyblade.type];
+  const TypeIcon = TYPE_ICONS[beyblade.type];
 
   if (compact) {
     return (
@@ -74,13 +36,13 @@ export function SelectableBeybladeCard({
               src={beyblade.image}
               alt={beyblade.name}
               name={beyblade.name}
-              compact
+              className="w-full h-24"
             />
           </div>
 
           <div className="text-center space-y-1.5">
             <h4 className="font-medium text-sm leading-tight line-clamp-2">{beyblade.name}</h4>
-            <Badge className={`${typeColors[beyblade.type]} text-xs`}>
+            <Badge className={`${TYPE_COLORS[beyblade.type]} text-xs`}>
               <TypeIcon className="h-3 w-3" />
             </Badge>
           </div>
@@ -105,7 +67,7 @@ export function SelectableBeybladeCard({
         <div className="text-center">
           <h3 className="font-semibold text-lg">{beyblade.name}</h3>
           <div className="flex justify-center gap-1 mt-2 flex-wrap">
-            <Badge className={typeColors[beyblade.type]}>
+            <Badge className={TYPE_COLORS[beyblade.type]}>
               <TypeIcon className="h-3.5 w-3.5" />
             </Badge>
             <Badge variant="outline">{beyblade.bladeName}</Badge>
@@ -115,7 +77,12 @@ export function SelectableBeybladeCard({
         </div>
 
         <div className="flex justify-center flex-1 items-center">
-          <ImageWithFallback src={beyblade.image} alt={beyblade.name} name={beyblade.name} />
+          <ImageWithFallback
+            src={beyblade.image}
+            alt={beyblade.name}
+            name={beyblade.name}
+            className="w-full h-48"
+          />
         </div>
       </CardContent>
     </Card>

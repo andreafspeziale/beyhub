@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router';
+import { cn } from '@/lib/utils';
 
 export function Navigation() {
   return (
@@ -6,11 +7,12 @@ export function Navigation() {
       <NavLink
         to="/compare"
         className={({ isActive }) =>
-          `px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+          cn(
+            'px-3 py-1.5 rounded-md text-sm font-medium transition-colors',
             isActive
               ? 'bg-primary text-primary-foreground'
-              : 'text-muted-foreground hover:text-foreground hover:bg-accent'
-          }`
+              : 'text-muted-foreground hover:text-foreground hover:bg-accent',
+          )
         }
       >
         Compare
@@ -18,11 +20,12 @@ export function Navigation() {
       <NavLink
         to="/compose"
         className={({ isActive }) =>
-          `px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+          cn(
+            'px-3 py-1.5 rounded-md text-sm font-medium transition-colors',
             isActive
               ? 'bg-primary text-primary-foreground'
-              : 'text-muted-foreground hover:text-foreground hover:bg-accent'
-          }`
+              : 'text-muted-foreground hover:text-foreground hover:bg-accent',
+          )
         }
       >
         Compose

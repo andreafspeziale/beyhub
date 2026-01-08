@@ -1,24 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import type { Beyblade } from '@/types/beyblade';
-import {
-  calculateOptimalComposition,
-  getStrategyDescription,
-  getStrategyLabel,
-} from '../composition';
-
-const createMockBeyblade = (overrides: Partial<Beyblade> = {}): Beyblade => ({
-  id: 'test_beyblade',
-  name: 'Test Beyblade',
-  type: 'Attack',
-  bladeName: 'TestBlade',
-  ratchetName: '3-60',
-  bitName: 'F',
-  blade: { attack: 50, defense: 30, stamina: 20 },
-  ratchet: { attack: 10, defense: 10, stamina: 10, height: 60 },
-  bit: { attack: 20, defense: 20, stamina: 20, dash: 30, burst: 50 },
-  image: '/test.png',
-  ...overrides,
-});
+import { calculateOptimalComposition, getStrategyLabel } from '../composition';
+import { createMockBeyblade } from './fixtures';
 
 describe('calculateOptimalComposition', () => {
   it('returns null for less than 2 beyblades', () => {
@@ -182,14 +164,5 @@ describe('getStrategyLabel', () => {
     expect(getStrategyLabel('defense')).toBe('Defense');
     expect(getStrategyLabel('stamina')).toBe('Stamina');
     expect(getStrategyLabel('balanced')).toBe('Balance');
-  });
-});
-
-describe('getStrategyDescription', () => {
-  it('returns descriptions for all strategies', () => {
-    expect(getStrategyDescription('attack')).toBeTruthy();
-    expect(getStrategyDescription('defense')).toBeTruthy();
-    expect(getStrategyDescription('stamina')).toBeTruthy();
-    expect(getStrategyDescription('balanced')).toBeTruthy();
   });
 });

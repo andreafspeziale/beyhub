@@ -1,20 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import type { Beyblade } from '@/types/beyblade';
-import { calculateTotalStats, calculateWinProbability, searchBeyblades } from '../calculations';
-
-const createMockBeyblade = (overrides: Partial<Beyblade> = {}): Beyblade => ({
-  id: 'test_beyblade',
-  name: 'Test Beyblade',
-  type: 'Attack',
-  bladeName: 'Test',
-  ratchetName: '3-60',
-  bitName: 'F',
-  blade: { attack: 50, defense: 30, stamina: 20 },
-  ratchet: { attack: 10, defense: 10, stamina: 10, height: 60 },
-  bit: { attack: 20, defense: 20, stamina: 20, dash: 30, burst: 50 },
-  image: '/test.png',
-  ...overrides,
-});
+import { calculateTotalStats, calculateWinProbability } from '../calculations';
+import { createMockBeyblade } from './fixtures';
 
 describe('calculateTotalStats', () => {
   it('correctly calculates total attack', () => {
@@ -84,45 +70,5 @@ describe('calculateWinProbability', () => {
     const result = calculateWinProbability(maxStats, minStats);
     expect(result).toBeLessThanOrEqual(95);
     expect(result).toBeGreaterThanOrEqual(5);
-  });
-});
-
-describe('searchBeyblades', () => {
-  const beyblades: Beyblade[] = [
-    createMockBeyblade({ id: '1', name: 'Impact Drake 9-60LR' }),
-    createMockBeyblade({ id: '2', name: 'Hover Wyvern 3-85N' }),
-    createMockBeyblade({ id: '3', name: 'Sword Dran 3-60F' }),
-  ];
-
-  it('returns all beyblades for empty query', () => {
-    const result = searchBeyblades(beyblades, '');
-    expect(result).toHaveLength(3);
-  });
-
-  it('returns all beyblades for whitespace query', () => {
-    const result = searchBeyblades(beyblades, '   ');
-    expect(result).toHaveLength(3);
-  });
-
-  it('filters by partial name match', () => {
-    const result = searchBeyblades(beyblades, 'drake');
-    expect(result).toHaveLength(1);
-    expect(result[0].name).toBe('Impact Drake 9-60LR');
-  });
-
-  it('is case insensitive', () => {
-    const result = searchBeyblades(beyblades, 'WYVERN');
-    expect(result).toHaveLength(1);
-    expect(result[0].name).toBe('Hover Wyvern 3-85N');
-  });
-
-  it('returns empty array for no matches', () => {
-    const result = searchBeyblades(beyblades, 'xyz');
-    expect(result).toHaveLength(0);
-  });
-
-  it('matches multiple beyblades', () => {
-    const result = searchBeyblades(beyblades, '3-');
-    expect(result).toHaveLength(2);
   });
 });

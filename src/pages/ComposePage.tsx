@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { BeybladeSearch } from '@/components/comparison/BeybladeSearch';
 import {
   CompositionResultCard,
@@ -11,6 +11,7 @@ import {
 import { StrategySelector } from '@/components/compose/StrategySelector';
 import { Layout } from '@/components/layout/Layout';
 import { useBeybladeData } from '@/hooks/useBeybladeData';
+import { useElementHeight } from '@/hooks/useElementHeight';
 import type { Beyblade, CompositionStrategy } from '@/types/beyblade';
 import { calculateOptimalComposition } from '@/utils/composition';
 
@@ -21,39 +22,15 @@ export function ComposePage() {
   const { beyblades, isLoading, error } = useBeybladeData();
   const [selectedBeyblades, setSelectedBeyblades] = useState<Beyblade[]>([]);
   const [strategy, setStrategy] = useState<CompositionStrategy>('balanced');
-  const [cardHeight, setCardHeight] = useState<number | null>(null);
-  const measureRef = useRef<HTMLDivElement>(null);
+  const { ref: measureRef, height: cardHeight } = useElementHeight<HTMLDivElement>({
+    defaultHeight: DEFAULT_CARD_HEIGHT,
+  });
 
   const selectedIds = selectedBeyblades.map((b) => b.id);
   const compositionResult = calculateOptimalComposition(selectedBeyblades, strategy);
 
-  // Measure card height from first selected card
-  useLayoutEffect(() => {
-    if (measureRef.current && selectedBeyblades.length > 0) {
-      const height = measureRef.current.offsetHeight;
-      if (height > 0 && height !== cardHeight) {
-        setCardHeight(height);
-      }
-    }
-  }, [selectedBeyblades.length, cardHeight]);
-
-  // Re-measure on resize
-  useEffect(() => {
-    const handleResize = () => {
-      if (measureRef.current) {
-        setCardHeight(measureRef.current.offsetHeight);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  // Use measured height or default
-  const effectiveCardHeight = cardHeight ?? DEFAULT_CARD_HEIGHT;
-
   // Height for composition result: 2 cards + 1 gap
-  const compositionHeight = effectiveCardHeight * 2 + GAP_PX;
+  const compositionHeight = cardHeight * 2 + GAP_PX;
 
   const handleAddBeyblade = (beyblade: Beyblade) => {
     if (!selectedIds.includes(beyblade.id)) {
@@ -107,7 +84,7 @@ export function ComposePage() {
                 <>
                   {/* First placeholder with search */}
                   <div className="flex flex-col gap-4">
-                    <SelectableBeybladeCardPlaceholder height={effectiveCardHeight} />
+                    <SelectableBeybladeCardPlaceholder height={cardHeight} />
                     <BeybladeSearch
                       beyblades={beyblades}
                       selectedId={null}
@@ -119,7 +96,7 @@ export function ComposePage() {
                   </div>
                   {/* Second placeholder (no search) */}
                   <div className="hidden sm:flex flex-col gap-4">
-                    <SelectableBeybladeCardPlaceholder height={effectiveCardHeight} />
+                    <SelectableBeybladeCardPlaceholder height={cardHeight} />
                   </div>
                 </>
               )}
@@ -127,7 +104,7 @@ export function ComposePage() {
               {/* Next selection placeholder with search (after at least one selection) */}
               {selectedBeyblades.length > 0 && (
                 <div className="flex flex-col gap-4">
-                  <SelectableBeybladeCardPlaceholder height={effectiveCardHeight} />
+                  <SelectableBeybladeCardPlaceholder height={cardHeight} />
                   <BeybladeSearch
                     beyblades={beyblades}
                     selectedId={null}
@@ -148,7 +125,7 @@ export function ComposePage() {
               {compositionResult ? (
                 <CompositionResultCard result={compositionResult} />
               ) : (
-                <CompositionResultPlaceholder height={effectiveCardHeight} />
+                <CompositionResultPlaceholder height={cardHeight} />
               )}
             </div>
           </div>

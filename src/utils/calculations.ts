@@ -39,12 +39,3 @@ export function calculateWinProbability(beybladeA: Beyblade, beybladeB: Beyblade
   // Clamp between 5% and 95% to avoid showing absolutes
   return Math.max(5, Math.min(95, Math.round(probability)));
 }
-
-export function searchBeyblades(beyblades: Beyblade[], query: string): Beyblade[] {
-  if (!query.trim()) {
-    return beyblades;
-  }
-
-  const lowerQuery = query.toLowerCase();
-  return beyblades.filter((beyblade) => beyblade.name.toLowerCase().includes(lowerQuery));
-}

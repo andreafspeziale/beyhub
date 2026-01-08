@@ -151,16 +151,3 @@ export function getStrategyLabel(strategy: CompositionStrategy): string {
       return 'Balance';
   }
 }
-
-export function getStrategyDescription(strategy: CompositionStrategy): string {
-  switch (strategy) {
-    case 'attack':
-      return 'Maximize attack power and dash capability';
-    case 'defense':
-      return 'Maximize defense and burst resistance';
-    case 'stamina':
-      return 'Maximize stamina for longer battles';
-    case 'balanced':
-      return 'Optimize for overall performance';
-  }
-}
