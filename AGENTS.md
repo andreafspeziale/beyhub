@@ -199,6 +199,14 @@ chore/update-dependencies
 - Push the branch and create a PR targeting `develop`
 - Even for small changes like config files, follow the full PR flow
 
+### GitHub CLI (`gh`) Authentication
+
+Before creating PRs, issues, or any GitHub operations:
+
+1. **Verify active account**: Run `gh auth status`
+2. **Ensure `andreafspeziale` is active** for this repository
+3. If wrong account is active, switch: `gh auth switch --user andreafspeziale`
+
 ### Starting a New Task
 
 Before starting any new feature, fix, or task:
@@ -206,7 +214,7 @@ Before starting any new feature, fix, or task:
 1. **Check for uncommitted changes**: Run `git status` to ensure working directory is clean
    - If there are uncommitted changes, ask the user for clarification before proceeding
 2. **Switch to develop**: `git checkout develop`
-3. **Pull latest changes**: `git pull`
+3. **Pull latest changes with rebase and prune**: `git pull --rebase && git fetch --prune`
 4. **Create feature branch**: `git checkout -b <type>/<description>`
 5. Proceed with the task
 
@@ -214,9 +222,10 @@ Before starting any new feature, fix, or task:
 
 1. Create a new branch from `develop`: `git checkout -b feat/my-feature`
 2. Develop and commit following conventional commits
-3. Push and create a PR targeting `develop`
-4. CI runs automatically (lint, types, tests)
-5. Merge when CI passes
+3. Push to remote: `git push -u origin <branch-name>`
+4. Create PR using GitHub CLI: `gh pr create --title "type: description" --body "..."`
+5. CI runs automatically (lint, types, tests)
+6. Merge when CI passes
 
 ### Release Flow
 
