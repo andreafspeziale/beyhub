@@ -1,4 +1,10 @@
+# Changelog
 
+## [1.0.3](https://github.com/andreafspeziale/beyhub/compare/1.0.2...1.0.3) (2026-01-11)
+
+### Bug Fixes
+
+* **release:** upgrade to release-it v19 with resolution for whatBump ([fd68585](https://github.com/andreafspeziale/beyhub/commit/fd685856471f8003118b4df1152b9c164756d196))
 
 ## [1.0.2](https://github.com/andreafspeziale/beyhub/compare/1.0.1...1.0.2) (2026-01-11)
 
