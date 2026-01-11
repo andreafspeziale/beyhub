@@ -17,18 +17,18 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          bun-version: latest
+          node-version: 22
       - name: Git config
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: npm ci
       - name: Release
-        run: bun run release --ci -VV
+        run: npx release-it --ci -VV
       - name: Update develop
         run: |
           if git ls-remote --heads origin develop | grep -q develop; then
