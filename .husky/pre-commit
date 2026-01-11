@@ -1,4 +1,4 @@
-if command -v bun &> /dev/null; then
+if command -v bun > /dev/null 2>&1; then
   bun run check
 else
   npm run check
