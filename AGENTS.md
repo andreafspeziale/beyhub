@@ -192,6 +192,24 @@ refactor/extract-utils
 chore/update-dependencies
 ```
 
+### Branch Rules for Agents
+
+- **NEVER commit directly to `main` or `develop`**
+- Always create a feature branch from `develop` following the naming convention: `<type>/<description>`
+- Push the branch and create a PR targeting `develop`
+- Even for small changes like config files, follow the full PR flow
+
+### Starting a New Task
+
+Before starting any new feature, fix, or task:
+
+1. **Check for uncommitted changes**: Run `git status` to ensure working directory is clean
+   - If there are uncommitted changes, ask the user for clarification before proceeding
+2. **Switch to develop**: `git checkout develop`
+3. **Pull latest changes**: `git pull`
+4. **Create feature branch**: `git checkout -b <type>/<description>`
+5. Proceed with the task
+
 ### Development Flow
 
 1. Create a new branch from `develop`: `git checkout -b feat/my-feature`
