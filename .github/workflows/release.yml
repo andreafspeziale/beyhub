@@ -1,0 +1,40 @@
+name: Release
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: [Test]
+    branches: [main]
+    types: [completed]
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Git config
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Release
+        run: bun run release --ci -VV
+      - name: Update develop
+        run: |
+          if git ls-remote --heads origin develop | grep -q develop; then
+            git checkout develop
+            git rebase main
+            git push
+          else
+            echo "develop branch does not exist yet, skipping rebase"
+          fi

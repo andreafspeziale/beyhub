@@ -19,6 +19,8 @@ bun run build            # TypeScript check + Vite production build
 bun run lint             # Run Biome linter on ./src
 bun run format           # Format code with Biome
 bun run check            # Biome check with auto-fix (pre-commit hook)
+bun run build:check      # TypeScript type checking (no emit)
+bun run release          # Run release-it (CI only)
 
 # Testing
 bun test                 # Run all tests
@@ -165,6 +167,48 @@ fix(search): correct fuzzy matching logic
 - `commit-msg`: Runs commitlint to validate commit message
 
 Always run `bun run check` before committing.
+
+## Git Workflow
+
+### Branch Structure
+
+| Branch | Purpose |
+|--------|---------|
+| `main` | Stable, production-ready code. Deployed automatically by Vercel. |
+| `develop` | Integration branch for ongoing development. **Default branch.** |
+| `<type>/<description>` | Feature/fix branches created from `develop` |
+
+### Branch Naming Convention
+
+Use conventional commit types as branch prefixes:
+
+```
+feat/add-dark-mode
+fix/search-not-working
+docs/update-readme
+refactor/extract-utils
+chore/update-dependencies
+```
+
+### Development Flow
+
+1. Create a new branch from `develop`: `git checkout -b feat/my-feature`
+2. Develop and commit following conventional commits
+3. Push and create a PR targeting `develop`
+4. CI runs automatically (lint, types, tests)
+5. Merge when CI passes
+
+### Release Flow
+
+1. Create a PR from `develop` to `main`
+2. CI runs automatically
+3. Merge when CI passes
+4. Release workflow automatically:
+   - Bumps version based on conventional commits
+   - Updates `CHANGELOG.md`
+   - Creates git tag and GitHub release
+   - Rebases `develop` from `main`
+5. Vercel deploys the new version
 
 ## Path Aliases
 
