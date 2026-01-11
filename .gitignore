@@ -59,6 +59,7 @@ coverage/
 # Misc
 *.pem
 .cache/
+.opencode/
 
 # TypeScript
 *.tsbuildinfo
