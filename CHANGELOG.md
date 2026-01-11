@@ -1,5 +1,15 @@
 
 
+## [1.0.1](https://github.com/andreafspeziale/beyhub/compare/1.0.0...1.0.1) (2026-01-11)
+
+
+### Bug Fixes
+
+* **husky:** support both bun and npm in git hooks ([f272b98](https://github.com/andreafspeziale/beyhub/commit/f272b9813522b8316c539e085a6a1697af2021a6))
+* **husky:** use POSIX-compatible shell syntax ([a99a73b](https://github.com/andreafspeziale/beyhub/commit/a99a73beeef7dc8b57918aa17532553c11575e3e))
+* **release:** disable husky hooks in CI ([3916524](https://github.com/andreafspeziale/beyhub/commit/39165246eed33068f1032f7538b2f9943cf45d08))
+* **release:** use Node.js for release workflow to fix Octokit bug ([3748107](https://github.com/andreafspeziale/beyhub/commit/37481073cef0e7caa904d78987a1871ec8c1cb17))
+
 ## 1.0.0 (2026-01-11)
 
 
