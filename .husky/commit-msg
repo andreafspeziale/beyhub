@@ -1,1 +1,5 @@
-bunx --no -- commitlint --edit $1
+if command -v bun &> /dev/null; then
+  bunx --no -- commitlint --edit $1
+else
+  npx --no -- commitlint --edit $1
+fi

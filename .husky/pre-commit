@@ -1,1 +1,5 @@
-bun run check
+if command -v bun &> /dev/null; then
+  bun run check
+else
+  npm run check
+fi
