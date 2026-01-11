@@ -1,5 +1,12 @@
 
 
+## [1.0.2](https://github.com/andreafspeziale/beyhub/compare/1.0.1...1.0.2) (2026-01-11)
+
+
+### Bug Fixes
+
+* **release:** revert to Bun with release-it v17 and HUSKY=0 ([0fad06a](https://github.com/andreafspeziale/beyhub/commit/0fad06a293d9881c08c4ef9ad80f838b7a3ba6f2))
+
 ## [1.0.1](https://github.com/andreafspeziale/beyhub/compare/1.0.0...1.0.1) (2026-01-11)
 
 
