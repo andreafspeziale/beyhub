@@ -29,6 +29,8 @@ jobs:
         run: npm ci
       - name: Release
         run: npx release-it --ci -VV
+        env:
+          HUSKY: 0
       - name: Update develop
         run: |
           if git ls-remote --heads origin develop | grep -q develop; then
