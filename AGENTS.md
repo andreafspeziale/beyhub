@@ -55,6 +55,95 @@ src/
 └── main.tsx             # Entry point
 ```
 
+## Git Workflow
+
+### Branch Structure
+
+| Branch | Purpose |
+|--------|---------|
+| `main` | Stable, production-ready code. Deployed automatically by Vercel. |
+| `develop` | Integration branch for ongoing development. **Default branch.** |
+| `<type>/<description>` | Feature/fix branches created from `develop` |
+
+### Branch Naming Convention
+
+Use conventional commit types as branch prefixes:
+
+```
+feat/add-dark-mode
+fix/search-not-working
+docs/update-readme
+refactor/extract-utils
+chore/update-dependencies
+```
+
+### Branch Rules for Agents
+
+- **NEVER commit directly to `main` or `develop`**
+- Always create a feature branch from `develop` following the naming convention: `<type>/<description>`
+- Push the branch and create a PR targeting `develop`
+- Even for small changes like config files, follow the full PR flow
+
+### GitHub CLI (`gh`) Authentication
+
+Before creating PRs, issues, or any GitHub operations:
+
+1. **Verify active account**: Run `gh auth status`
+2. **Ensure `andreafspeziale` is active** for this repository
+3. If wrong account is active, switch: `gh auth switch --user andreafspeziale`
+
+### Starting a New Task
+
+Before starting any new feature, fix, or task:
+
+1. **Check for uncommitted changes**: Run `git status` to ensure working directory is clean
+   - If there are uncommitted changes, ask the user for clarification before proceeding
+2. **Switch to develop**: `git checkout develop`
+3. **Pull latest changes with rebase and prune**: `git pull --rebase && git fetch --prune`
+4. **Create feature branch**: `git checkout -b <type>/<description>`
+5. Proceed with the task
+
+### Development Flow
+
+1. Create a new branch from `develop`: `git checkout -b feat/my-feature`
+2. Develop and commit following conventional commits
+3. Push to remote: `git push -u origin <branch-name>`
+4. Create PR using GitHub CLI: `gh pr create --title "type: description" --body "..."`
+5. CI runs automatically (lint, types, tests)
+6. Merge when CI passes
+
+### Commit Convention
+
+Format: `type(scope): description`
+
+**Types**: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `perf`, `ci`, `build`, `revert`
+
+**Rules**: Type/scope lowercase, subject not empty, no trailing period, max 100 chars
+
+```
+feat(comparison): add win probability calculation
+fix(search): correct fuzzy matching logic
+```
+
+### Pre-commit Hooks
+
+- `pre-commit`: Runs `bun run check` (Biome check with auto-fix)
+- `commit-msg`: Runs commitlint to validate commit message
+
+Always run `bun run check` before committing.
+
+### Release Flow
+
+1. Create a PR from `develop` to `main`
+2. CI runs automatically
+3. Merge when CI passes
+4. Release workflow automatically:
+   - Bumps version based on conventional commits
+   - Updates `CHANGELOG.md`
+   - Creates git tag and GitHub release
+   - Rebases `develop` from `main`
+5. Vercel deploys the new version
+
 ## Code Style Guidelines
 
 ### Formatting (Biome enforced)
@@ -64,7 +153,9 @@ src/
 - Trailing commas, arrow parentheses always
 - LF line endings
 
-### Import Order
+### Import Order & Path Aliases
+
+Use `@/` to reference the `src/` directory. Import order:
 
 1. External packages first
 2. Aliased imports (`@/`) second
@@ -74,6 +165,7 @@ src/
 ```typescript
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
+import { TYPE_COLORS } from '@/constants/beyblade.constants';
 import type { Beyblade } from '@/types/beyblade';
 import { calculateTotalStats } from '../calculations';
 ```
@@ -143,109 +235,12 @@ const message = err instanceof Error ? err.message : 'Unknown error';
 ```typescript
 import { describe, expect, it } from 'vitest';
 import { createMockBeyblade } from './fixtures';
+
 describe('calculateTotalStats', () => {
   it('correctly calculates total attack', () => {
     expect(calculateTotalStats(createMockBeyblade()).attack).toBe(80);
   });
 });
-```
-
-## Commit Convention
-
-Format: `type(scope): description`
-
-**Types**: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `perf`, `ci`, `build`, `revert`
-
-**Rules**: Type/scope lowercase, subject not empty, no trailing period, max 100 chars
-
-```
-feat(comparison): add win probability calculation
-fix(search): correct fuzzy matching logic
-```
-
-## Pre-commit Hooks
-
-- `pre-commit`: Runs `bun run check` (Biome check with auto-fix)
-- `commit-msg`: Runs commitlint to validate commit message
-
-Always run `bun run check` before committing.
-
-## Git Workflow
-
-### Branch Structure
-
-| Branch | Purpose |
-|--------|---------|
-| `main` | Stable, production-ready code. Deployed automatically by Vercel. |
-| `develop` | Integration branch for ongoing development. **Default branch.** |
-| `<type>/<description>` | Feature/fix branches created from `develop` |
-
-### Branch Naming Convention
-
-Use conventional commit types as branch prefixes:
-
-```
-feat/add-dark-mode
-fix/search-not-working
-docs/update-readme
-refactor/extract-utils
-chore/update-dependencies
-```
-
-### Branch Rules for Agents
-
-- **NEVER commit directly to `main` or `develop`**
-- Always create a feature branch from `develop` following the naming convention: `<type>/<description>`
-- Push the branch and create a PR targeting `develop`
-- Even for small changes like config files, follow the full PR flow
-
-### GitHub CLI (`gh`) Authentication
-
-Before creating PRs, issues, or any GitHub operations:
-
-1. **Verify active account**: Run `gh auth status`
-2. **Ensure `andreafspeziale` is active** for this repository
-3. If wrong account is active, switch: `gh auth switch --user andreafspeziale`
-
-### Starting a New Task
-
-Before starting any new feature, fix, or task:
-
-1. **Check for uncommitted changes**: Run `git status` to ensure working directory is clean
-   - If there are uncommitted changes, ask the user for clarification before proceeding
-2. **Switch to develop**: `git checkout develop`
-3. **Pull latest changes with rebase and prune**: `git pull --rebase && git fetch --prune`
-4. **Create feature branch**: `git checkout -b <type>/<description>`
-5. Proceed with the task
-
-### Development Flow
-
-1. Create a new branch from `develop`: `git checkout -b feat/my-feature`
-2. Develop and commit following conventional commits
-3. Push to remote: `git push -u origin <branch-name>`
-4. Create PR using GitHub CLI: `gh pr create --title "type: description" --body "..."`
-5. CI runs automatically (lint, types, tests)
-6. Merge when CI passes
-
-### Release Flow
-
-1. Create a PR from `develop` to `main`
-2. CI runs automatically
-3. Merge when CI passes
-4. Release workflow automatically:
-   - Bumps version based on conventional commits
-   - Updates `CHANGELOG.md`
-   - Creates git tag and GitHub release
-   - Rebases `develop` from `main`
-5. Vercel deploys the new version
-
-## Path Aliases
-
-Use `@/` to reference the `src/` directory:
-
-```typescript
-import { Button } from '@/components/ui/button';
-import type { Beyblade } from '@/types/beyblade';
 ```
 
 ## Exports and Dependencies Hygiene
@@ -282,16 +277,12 @@ export const WholeSchema = z.object({ part: PartSchema });
 Always use the `cn()` utility from `@/lib/utils` for conditional class composition:
 
 ```typescript
-// Good: use cn() for conditional classes
 className={cn(
   'px-3 py-1.5 rounded-md text-sm font-medium transition-colors',
   isActive
     ? 'bg-primary text-primary-foreground'
     : 'text-muted-foreground hover:text-foreground'
 )}
-
-// Avoid: template literals for conditional classes
-className={`px-3 py-1.5 ${isActive ? 'bg-primary' : 'text-muted'}`}
 ```
 
 ### Constants
@@ -301,17 +292,8 @@ Shared UI constants (icons, colors) are in `src/constants/`:
 - `beyblade.constants.ts` - `TYPE_ICONS`, `TYPE_COLORS`, `TYPE_ICON_COLORS`
 - `strategy.constants.ts` - `STRATEGY_ICONS`, `STRATEGY_COLORS`, `STRATEGIES`
 
-```typescript
-import { TYPE_COLORS, TYPE_ICONS } from '@/constants/beyblade.constants';
-import { STRATEGY_COLORS, STRATEGIES } from '@/constants/strategy.constants';
-```
-
 ### Common Components
 
 Reusable utility components live in `src/components/common/`:
 
 - `ImageWithFallback` - Image with placeholder fallback on error
-
-```typescript
-import { ImageWithFallback } from '@/components/common/ImageWithFallback';
-```
